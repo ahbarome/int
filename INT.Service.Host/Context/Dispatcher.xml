@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:tx="http://www.springframework.net/tx"
+         xmlns:db="http://www.springframework.net/database"
+         xsi:schemaLocation="http://www.springframework.net http://www.springframework.net/schema/objects/spring-objects.xsd 
+                             http://www.springframework.net/schema/tx http://www.springframework.net/schema/tx/spring-tx-1.1.xsd
+                             http://www.springframework.net/schema/db http://www.springframework.net/schema/db/spring-database.xsd">
+  <!--  ============================================================================================================================================= -->
+  <!--  *******************************************************  MessageQueue Process ************************************************************** -->
+  <!--  ============================================================================================================================================= -->
+  <!--InputQueue Factory-->
+  <object id="DataDownloadDispatcherInputTxQueue" type="Spring.Messaging.Support.MessageQueueFactoryObject, Spring.Messaging">
+    <property name="Path" value="${DataDownloadDispatcher.InputQueue.Path}"/>
+    <property name="MessageReadPropertyFilterSetAll" value="true"/>
+  </object>
+  <!-- My Message XmlMessage Converter to Serialize Messages in MSMQ -->
+  <object id="DataDownloadDispatcherXmlMessageConverter" type="Spring.Messaging.Support.Converters.XmlMessageConverter, Spring.Messaging" singleton="false">
+    <property name="TargetTypes">
+      <list>
+        <value>DownloadDataRequestType</value>
+      </list>
+    </property>
+  </object>
+  <!--  ============================================================================================================================================= -->
+  <!--  *******************************************************  Template Messages **************************************************************** -->
+  <!--  ============================================================================================================================================= -->
+  <!--Add reference to DataDownloadInputTxQueue factory and XmlMessage Converter-->
+  <object id="DataDownloadDispatcherTemplateObject" type="Spring.Messaging.Core.MessageQueueTemplate, Spring.Messaging">
+    <property name="DefaultMessageQueueObjectName" value="DataDownloadDispatcherInputTxQueue"/>
+    <property name="MessageConverterObjectName" value="DataDownloadDispatcherXmlMessageConverter"/>
+  </object>
+  <!--  ============================================================================================================================================= -->
+  <!--  *******************************************************  Messages Dispatch ************************************************************** -->
+  <!--  ============================================================================================================================================= -->
+  <object id="DataDownloadDispatcherMessageDispatcher" type="INT.Service.Dispatcher.Dispatch&lt;DownloadDataRequestType>, INT.Service.Dispatcher" singleton="true">
+    <property name="MsgQueueTemplate"  ref="DataDownloadDispatcherTemplateObject"/>
+  </object>
+</objects>

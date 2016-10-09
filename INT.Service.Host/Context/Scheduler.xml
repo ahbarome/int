@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.net http://www.springframework.net/xsd/spring-objects.xsd">
+
+
+  <!--  ============================================================================================================================================= -->
+  <!--  **************************************************  Task to synchronize devices ************************************************************* -->
+  <!--  ============================================================================================================================================= -->
+  <object id="DataDownloadScheduler" type="INT.Service.Scheduler.Schedulers.DataDownloadScheduler, INT.Service.Scheduler" singleton="true">
+    <property name="DataDownloadDispatcher" ref="DataDownloadDispatcherMessageDispatcher" />
+  </object>
+
+  <!--  ============================================================================================================================================= -->
+  <!--  ***********************************************Spring quartz Configuration Monitor*********************************************************** -->
+  <!--  ============================================================================================================================================= -->
+  <object id="JobDetailMonitor" type="Spring.Scheduling.Quartz.MethodInvokingJobDetailFactoryObject, Spring.Scheduling.Quartz">
+    <property name="TargetObject" ref="DataDownloadScheduler" />
+    <property name="TargetMethod" value="ExecuteTask" />
+    <property name="Concurrent" value="false" />
+  </object>
+
+  <object id="SimpleTriggerQuartzFacade" type="Spring.Scheduling.Quartz.SimpleTriggerObject, Spring.Scheduling.Quartz">
+    <!-- see the example of method invoking job above -->
+    <property name="jobDetail" ref="JobDetailMonitor" />
+    <!-- 10 seconds -->
+    <property name="StartDelay" value="5s" />
+    <!-- repeat every 50 seconds -->
+    <property name="RepeatInterval" value="1m" />
+  </object>
+  
+  <object id="CronTriggerMonitor" type="Spring.Scheduling.Quartz.CronTriggerObject, Spring.Scheduling.Quartz">
+    <property name="jobDetail" ref="JobDetailMonitor" />
+    <!--Fire at 23 with 59 minutes every day-->
+    <property name="CronExpressionString" value="${CronTriggerMonitor.CronExpressionString}" />
+  </object>
+
+  <!--****************************************spring quartz Configuration Manager*******************************************************************************-->
+  <object type="Spring.Scheduling.Quartz.SchedulerFactoryObject, Spring.Scheduling.Quartz">
+    <property name="triggers">
+      <list>
+        <ref object="SimpleTriggerQuartzFacade" />
+        <ref object="CronTriggerMonitor" />
+      </list>
+    </property>
+  </object>
+</objects>

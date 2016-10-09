@@ -6,12 +6,6 @@ using zkemkeeper;
 
 namespace INT.Service.ZKemkeeper.Wrappers
 {
-    public enum ConnectionType
-    {
-        Standard = 0,
-        USB = 1
-    };
-
     public class ZKemWrapper
     {
         /// <summary>
@@ -117,8 +111,6 @@ namespace INT.Service.ZKemkeeper.Wrappers
                 int idwWorkcode = 0;
 
                 int idwErrorCode = 0;
-                int iGLCount = 0;
-                int iIndex = 0;
 
                 var registers = new List<LogData>();
 
@@ -139,10 +131,8 @@ namespace INT.Service.ZKemkeeper.Wrappers
                             out idwSecond,
                             ref idwWorkcode))//get records from the memory
                     {
-                        iGLCount++;
                         var register = new LogData
                         {
-                            Index = iGLCount,
                             EnrollmentNumber = sdwEnrollNumber,
                             VerifyMode = idwVerifyMode,
                             RegisterDate =
@@ -151,7 +141,6 @@ namespace INT.Service.ZKemkeeper.Wrappers
                             WorkCode = idwWorkcode
                         };
                         registers.Add(register);
-                        iIndex++;
                     }
                 }
                 else

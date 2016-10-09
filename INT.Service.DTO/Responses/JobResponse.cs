@@ -1,4 +1,4 @@
-﻿namespace INT.Service.DTO.Response
+﻿namespace INT.Service.DTO.Responses
 {
     public class JobResponse
     {

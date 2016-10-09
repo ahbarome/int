@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:tx="http://www.springframework.net/tx"
+         xmlns:db="http://www.springframework.net/database"
+         xsi:schemaLocation="http://www.springframework.net http://www.springframework.net/schema/objects/spring-objects.xsd 
+                             http://www.springframework.net/schema/tx http://www.springframework.net/schema/tx/spring-tx-1.1.xsd
+                             http://www.springframework.net/schema/db http://www.springframework.net/schema/db/spring-database.xsd">
+
+
+  <object id="DataDownloadHandler" type="INT.Service.Handler.Handlers.DataDownloadHandler, INT.Service.Handler"/>
+  <!--  ============================================================================================================================================= -->
+  <!--  *******************************************************  MessageQueue Process ************************************************************** -->
+  <!--  ============================================================================================================================================= -->
+
+  <!--Syncroprocessor Delegate to plain .NET object for message handling-->
+  <object id="DataDownloadHandlerMessageListenerAdapter" type="Spring.Messaging.Listener.MessageListenerAdapter, Spring.Messaging">
+    <property name="HandlerObject" ref="DataDownloadHandler"/>
+    <property name="DefaultHandlerMethod" value="Handle"/>
+    <property name="MessageConverterObjectName" value="DataDownloadHandlerXmlMessageConverter"/>
+  </object>
+
+  <!--Message Listener Container-->
+  <object id="DataDownloadHandlerMessageListenerContainer" type="Spring.Messaging.Listener.TransactionalMessageListenerContainer, Spring.Messaging">
+    <property name="MessageQueueObjectName" value="DataDownloadHandlerInputTxQueue"/>
+    <property name="PlatformTransactionManager" ref="DataDownloadHandlerMessageQueueTransactionManager"/>
+    <property name="MessageListener" ref="DataDownloadHandlerMessageListenerAdapter"/>
+    <property name="MessageTransactionExceptionHandler" ref="DataDownloadHandlerExceptionHandler"/>
+    <property name="RecoveryTimeSpan" value="${DataDownloadHandler.RecoveryTimeSpan}"/>
+    <property name="MaxConcurrentListeners" value="${DataDownloadHandler.MaxConcurrentListeners}"/>
+  </object>
+
+  <!--InputQueue Factory-->
+  <object id="DataDownloadHandlerInputTxQueue" type="Spring.Messaging.Support.MessageQueueFactoryObject, Spring.Messaging">
+    <property name="Path" value="${DataDownloadHandler.InputQueue.Path}"/>
+    <property name="MessageReadPropertyFilterSetAll" value="true"/>
+  </object>
+
+  <!--MSMQ Transaction Manager-->
+  <object id="DataDownloadHandlerMessageQueueTransactionManager" type="Spring.Messaging.Core.MessageQueueTransactionManager, Spring.Messaging" singleton="false"/>
+
+  <!-- My Message XmlMessage Converter to Serialize Messages in MSMQ -->
+  <object id="DataDownloadHandlerXmlMessageConverter" type="Spring.Messaging.Support.Converters.XmlMessageConverter, Spring.Messaging" singleton="false">
+    <property name="TargetTypes">
+      <list>
+        <value>DownloadDataRequestType</value>
+      </list>
+    </property>
+  </object>
+
+  <object id="DataDownloadHandlerExceptionHandler" type="Spring.Messaging.Listener.SendToQueueExceptionHandler, Spring.Messaging">
+    <property name="MaxRetry" value="${DataDownloadHandler.MaxRetry}"/>
+    <property name="MessageQueueObjectName" value="DataDownloadHandlerDefaultErrorTxQueue"/>
+  </object>
+
+  <object id="DataDownloadHandlerDefaultErrorTxQueue" type="Spring.Messaging.Support.MessageQueueFactoryObject, Spring.Messaging">
+    <property name="Path" value="${DataDownloadHandler.ErrorQueue.Path}"/>
+    <property name="MessageReadPropertyFilterSetAll" value="true"/>
+  </object>
+
+  <!--  ============================================================================================================================================= -->
+  <!--  *******************************************************  Template Messages **************************************************************** -->
+  <!--  ============================================================================================================================================= -->
+  <!--Add reference to SyncroInputQueue factory and XmlMessage Converter-->
+  <object id="DataDownloadHandlerTemplateObject" type="Spring.Messaging.Core.MessageQueueTemplate, Spring.Messaging">
+    <property name="DefaultMessageQueueObjectName" value="DataDownloadHandlerInputTxQueue"/>
+    <property name="MessageConverterObjectName" value="DataDownloadHandlerXmlMessageConverter"/>
+  </object>
+
+</objects>
