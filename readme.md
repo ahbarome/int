@@ -1,2 +1,2 @@
-====EXAMPLE====
-* Intial version
+Administración de dispositivos biométricos con ZKemkeeper
+* Versión iniial
