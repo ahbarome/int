@@ -39,8 +39,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IProcessor.cs" />
+    <Compile Include="Interfaces\IValidator.cs" />
+    <Compile Include="Processors\DataDownloadProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validators\DataDownloadValidator.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\INT.Service.DTO\INT.Service.DTO.csproj">
+      <Project>{FA256BFE-51C4-4A20-BCF7-84EAD7BF935B}</Project>
+      <Name>INT.Service.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\INT.Service.ZKemkeeper\INT.Service.ZKemkeeper.csproj">
+      <Project>{AFD9A292-32E5-4F99-90CC-CF235F379956}</Project>
+      <Name>INT.Service.ZKemkeeper</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -101,7 +101,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Context\ZKemkeeper.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Context\Handler.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Context\BLL.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Context\Host.xml">
@@ -116,6 +122,10 @@
     <Content Include="intelisoft.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\INT.Service.BLL\INT.Service.BLL.csproj">
+      <Project>{1f835ab0-34b7-4fd8-b1e7-a95ae7a4c5bf}</Project>
+      <Name>INT.Service.BLL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\INT.Service.Dispatcher\INT.Service.Dispatcher.csproj">
       <Project>{99cfc055-71d5-4667-89bc-94205a91c164}</Project>
       <Name>INT.Service.Dispatcher</Name>

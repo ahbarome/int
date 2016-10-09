@@ -52,6 +52,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\INT.Service.BLL\INT.Service.BLL.csproj">
+      <Project>{1F835AB0-34B7-4FD8-B1E7-A95AE7A4C5BF}</Project>
+      <Name>INT.Service.BLL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\INT.Service.DTO\INT.Service.DTO.csproj">
       <Project>{FA256BFE-51C4-4A20-BCF7-84EAD7BF935B}</Project>
       <Name>INT.Service.DTO</Name>

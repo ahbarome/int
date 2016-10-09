@@ -8,7 +8,9 @@
                              http://www.springframework.net/schema/db http://www.springframework.net/schema/db/spring-database.xsd">
 
 
-  <object id="DataDownloadHandler" type="INT.Service.Handler.Handlers.DataDownloadHandler, INT.Service.Handler"/>
+  <object id="DataDownloadHandler" type="INT.Service.Handler.Handlers.DataDownloadHandler, INT.Service.Handler">
+    <property name="Processor" ref="DataDownloadProcessor"/>
+  </object>
   <!--  ============================================================================================================================================= -->
   <!--  *******************************************************  MessageQueue Process ************************************************************** -->
   <!--  ============================================================================================================================================= -->

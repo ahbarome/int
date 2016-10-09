@@ -1,12 +1,13 @@
 ﻿using INT.Service.ZKemkeeper.Conveters;
 using INT.Service.ZKemkeeper.Entities;
+using INT.Service.ZKemkeeper.Interfaces;
 using System;
 using System.Collections.Generic;
 using zkemkeeper;
 
 namespace INT.Service.ZKemkeeper.Wrappers
 {
-    public class ZKemWrapper
+    public class ZKemWrapper : IZKemWrapper
     {
         /// <summary>
         /// Create Standalone SDK class dynamicly.
@@ -81,7 +82,7 @@ namespace INT.Service.ZKemkeeper.Wrappers
         }
 
         /// <summary>
-        /// Get all the attendance in the connected devece
+        /// Get all the attendance in the connected device
         /// </summary>
         /// <returns>Attendance or log data in the connected device</returns>
         public List<LogData> GetGeneralLogData()
@@ -90,7 +91,7 @@ namespace INT.Service.ZKemkeeper.Wrappers
         }
 
         /// <summary>
-        /// Get all the attendance in the connected devece
+        /// Get all the attendance in the connected device
         /// </summary>
         /// <param name="disableDevice">Indicate if the device must be disable to adquire the data</param>
         /// <returns>Attendance or log data for the connected device. If was not possible the connection or 

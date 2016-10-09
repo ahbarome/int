@@ -41,7 +41,9 @@
   <ItemGroup>
     <Compile Include="Conveters\ZKemDateConverter.cs" />
     <Compile Include="Entities\LogData.cs" />
+    <Compile Include="Interfaces\IZKemWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Wrappers\ZKemWrapperStub.cs" />
     <Compile Include="Wrappers\ZKemWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
