@@ -5,6 +5,12 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "INT.Service.DAL", "INT.Service.DAL\INT.Service.DAL.csproj", "{2AF6F6E0-2DD8-41B2-AC74-5662B2058488}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "INT.Service.BLL", "INT.Service.BLL\INT.Service.BLL.csproj", "{1F835AB0-34B7-4FD8-B1E7-A95AE7A4C5BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "INT.Service.DTO", "INT.Service.DTO\INT.Service.DTO.csproj", "{FA256BFE-51C4-4A20-BCF7-84EAD7BF935B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "INT.Service.ZKemkeeper", "INT.Service.ZKemkeeper\INT.Service.ZKemkeeper.csproj", "{AFD9A292-32E5-4F99-90CC-CF235F379956}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +21,18 @@ Global
 		{2AF6F6E0-2DD8-41B2-AC74-5662B2058488}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2AF6F6E0-2DD8-41B2-AC74-5662B2058488}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2AF6F6E0-2DD8-41B2-AC74-5662B2058488}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F835AB0-34B7-4FD8-B1E7-A95AE7A4C5BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F835AB0-34B7-4FD8-B1E7-A95AE7A4C5BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F835AB0-34B7-4FD8-B1E7-A95AE7A4C5BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F835AB0-34B7-4FD8-B1E7-A95AE7A4C5BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA256BFE-51C4-4A20-BCF7-84EAD7BF935B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA256BFE-51C4-4A20-BCF7-84EAD7BF935B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA256BFE-51C4-4A20-BCF7-84EAD7BF935B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA256BFE-51C4-4A20-BCF7-84EAD7BF935B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFD9A292-32E5-4F99-90CC-CF235F379956}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFD9A292-32E5-4F99-90CC-CF235F379956}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFD9A292-32E5-4F99-90CC-CF235F379956}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFD9A292-32E5-4F99-90CC-CF235F379956}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

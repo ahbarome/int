@@ -1,0 +1,8 @@
+C:\Dev\Git\INT\int\INT.Service.ZKemkeeper\obj\Debug\INT.Service.ZKemkeeper.csprojResolveAssemblyReference.cache
+C:\Dev\Git\INT\int\INT.Service.ZKemkeeper\obj\Debug\Interop.zkemkeeper.dll
+C:\Dev\Git\INT\int\INT.Service.ZKemkeeper\obj\Debug\INT.Service.ZKemkeeper.csproj.ResolveComReference.cache
+C:\Dev\Git\INT\int\INT.Service.ZKemkeeper\bin\Debug\INT.Service.ZKemkeeper.dll
+C:\Dev\Git\INT\int\INT.Service.ZKemkeeper\bin\Debug\INT.Service.ZKemkeeper.pdb
+C:\Dev\Git\INT\int\INT.Service.ZKemkeeper\bin\Debug\Interop.zkemkeeper.dll
+C:\Dev\Git\INT\int\INT.Service.ZKemkeeper\obj\Debug\INT.Service.ZKemkeeper.dll
+C:\Dev\Git\INT\int\INT.Service.ZKemkeeper\obj\Debug\INT.Service.ZKemkeeper.pdb
