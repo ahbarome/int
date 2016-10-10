@@ -59,9 +59,6 @@
     <Compile Include="Model\CurrentDevice.cs">
       <DependentUpon>IntellisoftModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\Device.cs">
-      <DependentUpon>IntellisoftModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Model\IntellisoftModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -78,9 +75,6 @@
       <DependentUpon>IntellisoftModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Model\LoadTrace.cs">
-      <DependentUpon>IntellisoftModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\LogData.cs">
       <DependentUpon>IntellisoftModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Mapper\CurrentDevice.cs" />

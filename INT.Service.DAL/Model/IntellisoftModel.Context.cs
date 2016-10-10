@@ -27,23 +27,29 @@ namespace INT.Service.DAL.Model
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Device> Device { get; set; }
         public virtual DbSet<Scheduler> Scheduler { get; set; }
         public virtual DbSet<CurrentDevice> CurrentDevice { get; set; }
         public virtual DbSet<LoadTrace> LoadTrace { get; set; }
-        public virtual DbSet<LogData> LogData { get; set; }
     
-        public virtual int LoadDeviceData(string server, string enrollmentNumber)
+        public virtual int LoadDeviceData(string server, string ipAddress, string enrollmentNumber, Nullable<System.DateTime> registerDate)
         {
             var serverParameter = server != null ?
                 new ObjectParameter("Server", server) :
                 new ObjectParameter("Server", typeof(string));
     
+            var ipAddressParameter = ipAddress != null ?
+                new ObjectParameter("IpAddress", ipAddress) :
+                new ObjectParameter("IpAddress", typeof(string));
+    
             var enrollmentNumberParameter = enrollmentNumber != null ?
                 new ObjectParameter("EnrollmentNumber", enrollmentNumber) :
                 new ObjectParameter("EnrollmentNumber", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("LoadDeviceData", serverParameter, enrollmentNumberParameter);
+            var registerDateParameter = registerDate.HasValue ?
+                new ObjectParameter("RegisterDate", registerDate) :
+                new ObjectParameter("RegisterDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("LoadDeviceData", serverParameter, ipAddressParameter, enrollmentNumberParameter, registerDateParameter);
         }
     }
 }

@@ -25,7 +25,7 @@ namespace INT.Service.BLL.Processors
             ZKemWrapper.Disconnet();
 
             var filteredLogData = ApplyFilters(logData, request.FromIpAddress);
-            var filteredLogDataDao = LogDataBuilder(filteredLogData, request.ToDataBase);
+            var filteredLogDataDao = LogDataBuilder(filteredLogData, request.FromIpAddress, request.ToDataBase);
 
             Persist(filteredLogDataDao);
         }
@@ -38,7 +38,7 @@ namespace INT.Service.BLL.Processors
             }
         }
 
-        private LogDataCollectionRequest LogDataBuilder(List<LogData> filteredLogData, string ipAddress)
+        private LogDataCollectionRequest LogDataBuilder(List<LogData> filteredLogData, string ipAddress, string server)
         {
             var logData = new LogDataCollectionRequest();
 
@@ -46,7 +46,8 @@ namespace INT.Service.BLL.Processors
             {
                 logData.Add(new LogDataRequest()
                 {
-                    ServerName = ipAddress,
+                    ServerName = server,
+                    IpAddress = ipAddress,
                     EnrollmentNumber = x.EnrollmentNumber,
                     RegisterDate = x.RegisterDate
                 });

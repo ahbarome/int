@@ -28,7 +28,7 @@ namespace INT.Service.DAL.DataAccess
         {
             BaseContext context = new BaseContext();
 
-            var count = context.Context.LoadDeviceData(data.ServerName, data.EnrollmentNumber);
+            var count = context.Context.LoadDeviceData(data.ServerName, data.IpAddress, data.EnrollmentNumber, data.RegisterDate);
 
             var result = count > 0 ? true : false;
             

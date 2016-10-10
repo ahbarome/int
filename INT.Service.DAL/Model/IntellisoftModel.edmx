@@ -5,15 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="IetellisoftModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Device">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IpAddress" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="BackupDatabase" Type="nvarchar" MaxLength="150" />
-          <Property Name="RegisterDate" Type="datetime" />
-        </EntityType>
         <EntityType Name="LoadTrace">
           <Key>
             <PropertyRef Name="Id" />
@@ -21,14 +12,6 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IpAddress" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="LastLoadDate" Type="datetime" Nullable="false" />
-        </EntityType>
-        <EntityType Name="LogData">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="EnrollmentNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="RegisterDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Scheduler">
           <Key>
@@ -48,19 +31,20 @@
 warning 6002: The table/view 'INT_BASE.INT.CurrentDevice' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CurrentDevice">
           <Key>
+            
             <PropertyRef Name="FromIpAddress" />
           </Key>
           <Property Name="FromIpAddress" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="ToDataBase" Type="nvarchar" MaxLength="150" />
+          <Property Name="ToDataBase" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <Function Name="LoadDeviceData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="INT">
           <Parameter Name="Server" Type="nvarchar" Mode="In" />
+          <Parameter Name="IpAddress" Type="nvarchar" Mode="In" />
           <Parameter Name="EnrollmentNumber" Type="nvarchar" Mode="In" />
+          <Parameter Name="RegisterDate" Type="datetime" Mode="In" />
         </Function>
         <EntityContainer Name="IetellisoftModelStoreContainer">
-          <EntitySet Name="Device" EntityType="Self.Device" Schema="INT" store:Type="Tables" />
           <EntitySet Name="LoadTrace" EntityType="Self.LoadTrace" Schema="INT" store:Type="Tables" />
-          <EntitySet Name="LogData" EntityType="Self.LogData" Schema="INT" store:Type="Tables" />
           <EntitySet Name="Scheduler" EntityType="Self.Scheduler" Schema="INT" store:Type="Tables" />
           <EntitySet Name="CurrentDevice" EntityType="Self.CurrentDevice" store:Type="Views" store:Schema="INT">
             <DefiningQuery>SELECT 
@@ -73,15 +57,6 @@ warning 6002: The table/view 'INT_BASE.INT.CurrentDevice' does not have a primar
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="IetellisoftModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Device">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IpAddress" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="BackupDatabase" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="RegisterDate" Type="DateTime" Precision="3" />
-        </EntityType>
         <EntityType Name="Scheduler">
           <Key>
             <PropertyRef Name="JobName" />
@@ -97,22 +72,22 @@ warning 6002: The table/view 'INT_BASE.INT.CurrentDevice' does not have a primar
           <Property Name="Day" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityContainer Name="IntellisoftEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Device" EntityType="Self.Device" />
           <EntitySet Name="Scheduler" EntityType="Self.Scheduler" />
           <EntitySet Name="CurrentDevice" EntityType="IetellisoftModel.CurrentDevice" />
+          <EntitySet Name="LoadTrace" EntityType="IetellisoftModel.LoadTrace" />
           <FunctionImport Name="LoadDeviceData">
             <Parameter Name="Server" Mode="In" Type="String" />
+            <Parameter Name="IpAddress" Mode="In" Type="String" />
             <Parameter Name="EnrollmentNumber" Mode="In" Type="String" />
+            <Parameter Name="RegisterDate" Mode="In" Type="DateTime" />
           </FunctionImport>
-          <EntitySet Name="LoadTrace" EntityType="IetellisoftModel.LoadTrace" />
-          <EntitySet Name="LogData" EntityType="IetellisoftModel.LogData" />
         </EntityContainer>
         <EntityType Name="CurrentDevice">
           <Key>
             <PropertyRef Name="FromIpAddress" />
           </Key>
           <Property Name="FromIpAddress" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="ToDataBase" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ToDataBase" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="LoadTrace">
           <Key>
@@ -122,30 +97,12 @@ warning 6002: The table/view 'INT_BASE.INT.CurrentDevice' does not have a primar
           <Property Name="IpAddress" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="LastLoadDate" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
-        <EntityType Name="LogData">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EnrollmentNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="RegisterDate" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="IetellisoftModelStoreContainer" CdmEntityContainer="IntellisoftEntities">
-          <EntitySetMapping Name="Device">
-            <EntityTypeMapping TypeName="IetellisoftModel.Device">
-              <MappingFragment StoreEntitySet="Device">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="IpAddress" ColumnName="IpAddress" />
-                <ScalarProperty Name="BackupDatabase" ColumnName="BackupDatabase" />
-                <ScalarProperty Name="RegisterDate" ColumnName="RegisterDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Scheduler">
             <EntityTypeMapping TypeName="IetellisoftModel.Scheduler">
               <MappingFragment StoreEntitySet="Scheduler">
@@ -167,7 +124,6 @@ warning 6002: The table/view 'INT_BASE.INT.CurrentDevice' does not have a primar
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="LoadDeviceData" FunctionName="IetellisoftModel.Store.LoadDeviceData" />
           <EntitySetMapping Name="LoadTrace">
             <EntityTypeMapping TypeName="IetellisoftModel.LoadTrace">
               <MappingFragment StoreEntitySet="LoadTrace">
@@ -177,15 +133,7 @@ warning 6002: The table/view 'INT_BASE.INT.CurrentDevice' does not have a primar
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="LogData">
-            <EntityTypeMapping TypeName="IetellisoftModel.LogData">
-              <MappingFragment StoreEntitySet="LogData">
-                <ScalarProperty Name="RegisterDate" ColumnName="RegisterDate" />
-                <ScalarProperty Name="EnrollmentNumber" ColumnName="EnrollmentNumber" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="LoadDeviceData" FunctionName="IetellisoftModel.Store.LoadDeviceData" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
