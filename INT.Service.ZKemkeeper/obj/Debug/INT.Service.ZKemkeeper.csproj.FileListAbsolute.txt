@@ -6,3 +6,11 @@ C:\Dev\Git\INT\int\INT.Service.ZKemkeeper\bin\Debug\INT.Service.ZKemkeeper.pdb
 C:\Dev\Git\INT\int\INT.Service.ZKemkeeper\bin\Debug\Interop.zkemkeeper.dll
 C:\Dev\Git\INT\int\INT.Service.ZKemkeeper\obj\Debug\INT.Service.ZKemkeeper.dll
 C:\Dev\Git\INT\int\INT.Service.ZKemkeeper\obj\Debug\INT.Service.ZKemkeeper.pdb
+C:\Users\Superman\Documents\Visual Studio 2013\Projects\Stages\int\INT.Service.ZKemkeeper\bin\Debug\INT.Service.ZKemkeeper.dll
+C:\Users\Superman\Documents\Visual Studio 2013\Projects\Stages\int\INT.Service.ZKemkeeper\bin\Debug\INT.Service.ZKemkeeper.pdb
+C:\Users\Superman\Documents\Visual Studio 2013\Projects\Stages\int\INT.Service.ZKemkeeper\bin\Debug\Interop.zkemkeeper.dll
+C:\Users\Superman\Documents\Visual Studio 2013\Projects\Stages\int\INT.Service.ZKemkeeper\obj\Debug\INT.Service.ZKemkeeper.csprojResolveAssemblyReference.cache
+C:\Users\Superman\Documents\Visual Studio 2013\Projects\Stages\int\INT.Service.ZKemkeeper\obj\Debug\Interop.zkemkeeper.dll
+C:\Users\Superman\Documents\Visual Studio 2013\Projects\Stages\int\INT.Service.ZKemkeeper\obj\Debug\INT.Service.ZKemkeeper.csproj.ResolveComReference.cache
+C:\Users\Superman\Documents\Visual Studio 2013\Projects\Stages\int\INT.Service.ZKemkeeper\obj\Debug\INT.Service.ZKemkeeper.dll
+C:\Users\Superman\Documents\Visual Studio 2013\Projects\Stages\int\INT.Service.ZKemkeeper\obj\Debug\INT.Service.ZKemkeeper.pdb

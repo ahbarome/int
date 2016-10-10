@@ -40,8 +40,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Requests\DataDownloadCollectionRequest.cs" />
     <Compile Include="Requests\DataDownloadRequest.cs" />
+    <Compile Include="Requests\LogDataCollectionRequest.cs" />
+    <Compile Include="Requests\LogDataRequest.cs" />
+    <Compile Include="Responses\JobCollectionResponse.cs" />
     <Compile Include="Responses\JobResponse.cs" />
+    <Compile Include="Responses\SaveResponse.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

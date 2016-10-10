@@ -1,13 +1,12 @@
-﻿using INT.Service.DAL.Model;
-using System;
-
-namespace INT.Service.DAL.Base
+﻿namespace INT.Service.DAL.Base
 {
+    using INT.Service.DAL.Model;
+    using System;
     public class BaseContext : IDisposable
     {
         #region Attributes
 
-        private QuartzEntities _Context;
+        private IntellisoftEntities _Context;
 
         #endregion
 
@@ -15,19 +14,19 @@ namespace INT.Service.DAL.Base
 
         public void LoadNewContext()
         {
-            _Context = new QuartzEntities();
+            _Context = new IntellisoftEntities();
         }
 
         #endregion
 
         #region Properties
 
-        public QuartzEntities Context
+        public IntellisoftEntities Context
         {
             get
             {
                 if (_Context == null)
-                    _Context = new QuartzEntities();
+                    _Context = new IntellisoftEntities();
 
                 return _Context;
             }

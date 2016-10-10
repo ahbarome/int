@@ -46,6 +46,10 @@
     <Compile Include="Validators\DataDownloadValidator.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\INT.Service.DAL\INT.Service.DAL.csproj">
+      <Project>{2af6f6e0-2dd8-41b2-ac74-5662b2058488}</Project>
+      <Name>INT.Service.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\INT.Service.DTO\INT.Service.DTO.csproj">
       <Project>{FA256BFE-51C4-4A20-BCF7-84EAD7BF935B}</Project>
       <Name>INT.Service.DTO</Name>

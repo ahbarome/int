@@ -12,14 +12,11 @@ namespace INT.Service.DAL.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Scheduler
+    public partial class Device
     {
-        public string JobName { get; set; }
-        public string TriggerName { get; set; }
-        public string ScheduleGroup { get; set; }
-        public string Second { get; set; }
-        public string Minute { get; set; }
-        public string Hour { get; set; }
-        public string Day { get; set; }
+        public int Id { get; set; }
+        public string IpAddress { get; set; }
+        public string BackupDatabase { get; set; }
+        public Nullable<System.DateTime> RegisterDate { get; set; }
     }
 }

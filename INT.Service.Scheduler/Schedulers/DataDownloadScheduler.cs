@@ -2,6 +2,7 @@
 using INT.Service.Scheduler.Interfaces;
 using INT.Service.DTO.Requests;
 using INT.Service.Dispatcher.Interfaces;
+using INT.Service.DAL.DataAccess;
 
 namespace INT.Service.Scheduler.Schedulers
 {
@@ -13,15 +14,24 @@ namespace INT.Service.Scheduler.Schedulers
         {
             if (DataDownloadDispatcher != null)
             {
-                DataDownloadDispatcher.SendMessage(
-                new DataDownloadRequest
+                var DAO = new DAOManager();
+
+                var devicesToMonitor = DAO.GetDevicesToMonitor();
+
+                foreach(var device in devicesToMonitor)
                 {
-                    FromIpAddress = "192.168.0.20",
-                    ToDataBase = @"DUMMY\TEST"
-                });
+                    DataDownloadDispatcher.SendMessage(device);
+                }
+
+                //DataDownloadDispatcher.SendMessage(
+                //new DataDownloadRequest
+                //{
+                //    FromIpAddress = "192.168.0.20",
+                //    ToDataBase = @"DUMMY\TEST"
+                //});
+
                 Console.WriteLine("Request dispatched!");
             }
-
         }
     }
 }

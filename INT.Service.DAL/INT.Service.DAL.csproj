@@ -30,8 +30,23 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFrameworkExtras.EF6, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFrameworkExtras.EF6.1.0.0\lib\net45\EntityFrameworkExtras.EF6.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -39,8 +54,77 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\BaseContext.cs" />
+    <Compile Include="DataAccess\DAOManager.cs" />
+    <Compile Include="Model\CurrentDevice.cs">
+      <DependentUpon>IntellisoftModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Device.cs">
+      <DependentUpon>IntellisoftModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\IntellisoftModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IntellisoftModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\IntellisoftModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IntellisoftModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\IntellisoftModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IntellisoftModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\LoadTrace.cs">
+      <DependentUpon>IntellisoftModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\LogData.cs">
+      <DependentUpon>IntellisoftModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Mapper\CurrentDevice.cs" />
+    <Compile Include="Model\Mapper\Scheduler.cs" />
+    <Compile Include="Model\Scheduler.cs">
+      <DependentUpon>IntellisoftModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="Model\IntellisoftModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>IntellisoftModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="Model\IntellisoftModel.edmx.diagram">
+      <DependentUpon>IntellisoftModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Model\IntellisoftModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>IntellisoftModel.edmx</DependentUpon>
+      <LastGenOutput>IntellisoftModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\IntellisoftModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>IntellisoftModel.edmx</DependentUpon>
+      <LastGenOutput>IntellisoftModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\INT.Service.DTO\INT.Service.DTO.csproj">
+      <Project>{fa256bfe-51c4-4a20-bcf7-84ead7bf935b}</Project>
+      <Name>INT.Service.DTO</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
