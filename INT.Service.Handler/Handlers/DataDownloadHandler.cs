@@ -20,9 +20,9 @@ namespace INT.Service.Handler.Handlers
         {
             try
             {
-                Console.WriteLine(
-                    "Request received: {0} {1}", request.FromIpAddress, request.ToDataBase);
-
+#if (DEBUG)
+                LOGGER.Debug(string.Format("Request received: {0}", request));
+#endif
                 Processor.Execute(request);
             }
             catch (Exception exception)
@@ -30,7 +30,6 @@ namespace INT.Service.Handler.Handlers
                 LOGGER.Error(exception.Message, exception);
                 throw;
             }
-           
         }
     }
 }
