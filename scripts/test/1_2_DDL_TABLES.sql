@@ -17,6 +17,7 @@ GO
 CREATE TABLE [INT].[LoadTrace](
 	[Id] [int]		IDENTITY(1,1)	PRIMARY KEY NOT NULL,
 	[IpAddress]		[nvarchar](20)	NOT NULL,
+	[ServerName]	[nvarchar](MAX)	NOT NULL,
 	[LastLoadDate]	[datetime] NOT	NULL
 )
 GO

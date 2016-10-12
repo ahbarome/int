@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\Superman\Documents\Visual Studio 2013\Projects\Stages\int\INT.Service.DAL\Model\IntellisoftModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Dev\Git\INT\int\INT.Service.DAL\Model\IntellisoftModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

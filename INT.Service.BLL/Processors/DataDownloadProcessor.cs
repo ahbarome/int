@@ -11,23 +11,27 @@ namespace INT.Service.BLL.Processors
 {
     public class DataDownloadProcessor : IProcessor<DataDownloadRequest>
     {
-        IZKemWrapper ZKemWrapper { get; set; }
-        IValidator<DataDownloadRequest> Validator { get; set; }
-
-        DAOManager DAO = new DAOManager();
+        public IZKemWrapper ZKemWrapper { get; set; }
+        public IValidator<DataDownloadRequest> Validator { get; set; }
+        public DAOManager DAO { get; set; }
 
         public void Execute(DataDownloadRequest request)
         {
             Validator.Validate(request);
 
-            ZKemWrapper.Connect(request.FromIpAddress);
-            var logData = ZKemWrapper.GetGeneralLogData();
-            ZKemWrapper.Disconnet();
+            var connected = ZKemWrapper.Connect(request.FromIpAddress);
 
-            var filteredLogData = ApplyFilters(logData, request.FromIpAddress);
-            var filteredLogDataDao = LogDataBuilder(filteredLogData, request.FromIpAddress, request.ToDataBase);
+            if (connected)
+            {
+                var logData = ZKemWrapper.GetGeneralLogData();
+                ZKemWrapper.Disconnet();
 
-            Persist(filteredLogDataDao);
+                var filteredLogData = ApplyFilters(logData, request.FromIpAddress, request.ToDataBase);
+                var filteredLogDataDao =
+                    LogDataBuilder(filteredLogData, request.FromIpAddress, request.ToDataBase);
+
+                Persist(filteredLogDataDao);
+            }
         }
 
         private void Persist(LogDataCollectionRequest filteredLogDataDao)
@@ -38,7 +42,8 @@ namespace INT.Service.BLL.Processors
             }
         }
 
-        private LogDataCollectionRequest LogDataBuilder(List<LogData> filteredLogData, string ipAddress, string server)
+        private LogDataCollectionRequest LogDataBuilder(
+            List<LogData> filteredLogData, string ipAddress, string server)
         {
             var logData = new LogDataCollectionRequest();
 
@@ -56,9 +61,10 @@ namespace INT.Service.BLL.Processors
             return logData;
         }
 
-        private List<LogData> ApplyFilters(List<LogData> logData, string ipAddress)
+        private List<LogData> ApplyFilters(
+            List<LogData> logData, string ipAddress, string serverName)
         {
-            var date = DAO.GetLastExecutionByIpAddress(ipAddress);
+            var date = DAO.GetLastExecutionByIpAddressAndServerName(ipAddress, serverName);
 
             if (date.Equals(DateTime.MinValue))
             {

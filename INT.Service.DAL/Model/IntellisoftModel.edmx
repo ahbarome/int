@@ -12,6 +12,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IpAddress" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="LastLoadDate" Type="datetime" Nullable="false" />
+          <Property Name="ServerName" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Scheduler">
           <Key>
@@ -31,9 +32,11 @@
 warning 6002: The table/view 'INT_BASE.INT.CurrentDevice' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CurrentDevice">
           <Key>
+            <PropertyRef Name="SyncId" />
             
             <PropertyRef Name="FromIpAddress" />
           </Key>
+          <Property Name="SyncId" Type="int" Nullable="false" />
           <Property Name="FromIpAddress" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="ToDataBase" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
@@ -48,6 +51,7 @@ warning 6002: The table/view 'INT_BASE.INT.CurrentDevice' does not have a primar
           <EntitySet Name="Scheduler" EntityType="Self.Scheduler" Schema="INT" store:Type="Tables" />
           <EntitySet Name="CurrentDevice" EntityType="Self.CurrentDevice" store:Type="Views" store:Schema="INT">
             <DefiningQuery>SELECT 
+    [CurrentDevice].[SyncId] AS [SyncId], 
     [CurrentDevice].[FromIpAddress] AS [FromIpAddress], 
     [CurrentDevice].[ToDataBase] AS [ToDataBase]
     FROM [INT].[CurrentDevice] AS [CurrentDevice]</DefiningQuery>
@@ -85,9 +89,11 @@ warning 6002: The table/view 'INT_BASE.INT.CurrentDevice' does not have a primar
         <EntityType Name="CurrentDevice">
           <Key>
             <PropertyRef Name="FromIpAddress" />
+            <PropertyRef Name="SyncId" />
           </Key>
           <Property Name="FromIpAddress" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="ToDataBase" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SyncId" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="LoadTrace">
           <Key>
@@ -96,6 +102,7 @@ warning 6002: The table/view 'INT_BASE.INT.CurrentDevice' does not have a primar
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IpAddress" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="LastLoadDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ServerName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -119,6 +126,7 @@ warning 6002: The table/view 'INT_BASE.INT.CurrentDevice' does not have a primar
           <EntitySetMapping Name="CurrentDevice">
             <EntityTypeMapping TypeName="IetellisoftModel.CurrentDevice">
               <MappingFragment StoreEntitySet="CurrentDevice">
+                <ScalarProperty Name="SyncId" ColumnName="SyncId" />
                 <ScalarProperty Name="ToDataBase" ColumnName="ToDataBase" />
                 <ScalarProperty Name="FromIpAddress" ColumnName="FromIpAddress" />
               </MappingFragment>
@@ -127,6 +135,7 @@ warning 6002: The table/view 'INT_BASE.INT.CurrentDevice' does not have a primar
           <EntitySetMapping Name="LoadTrace">
             <EntityTypeMapping TypeName="IetellisoftModel.LoadTrace">
               <MappingFragment StoreEntitySet="LoadTrace">
+                <ScalarProperty Name="ServerName" ColumnName="ServerName" />
                 <ScalarProperty Name="LastLoadDate" ColumnName="LastLoadDate" />
                 <ScalarProperty Name="IpAddress" ColumnName="IpAddress" />
                 <ScalarProperty Name="Id" ColumnName="Id" />

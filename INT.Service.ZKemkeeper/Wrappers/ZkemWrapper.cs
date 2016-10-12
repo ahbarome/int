@@ -1,6 +1,7 @@
 ﻿using INT.Service.ZKemkeeper.Conveters;
 using INT.Service.ZKemkeeper.Entities;
 using INT.Service.ZKemkeeper.Interfaces;
+using INT.Service.ZKemkeeper.Utilities;
 using System;
 using System.Collections.Generic;
 using zkemkeeper;
@@ -115,49 +116,58 @@ namespace INT.Service.ZKemkeeper.Wrappers
 
                 var registers = new List<LogData>();
 
-                zkemkeeper.EnableDevice(_iMachineNumber, !disableDevice);//disable the device
-                if (zkemkeeper.ReadGeneralLogData(_iMachineNumber))//read all the attendance records to the memory
+                lock (registers)
                 {
-                    while (
-                        zkemkeeper.SSR_GetGeneralLogData(
-                            _iMachineNumber,
-                            out sdwEnrollNumber,
-                            out idwVerifyMode,
-                            out idwInOutMode,
-                            out idwYear,
-                            out idwMonth,
-                            out idwDay,
-                            out idwHour,
-                            out idwMinute,
-                            out idwSecond,
-                            ref idwWorkcode))//get records from the memory
+                    zkemkeeper.EnableDevice(_iMachineNumber, !disableDevice);//disable the device
+                    if (zkemkeeper.ReadGeneralLogData(_iMachineNumber))//read all the attendance records to the memory
                     {
-                        var register = new LogData
+                        while (
+                            zkemkeeper.SSR_GetGeneralLogData(
+                                _iMachineNumber,
+                                out sdwEnrollNumber,
+                                out idwVerifyMode,
+                                out idwInOutMode,
+                                out idwYear,
+                                out idwMonth,
+                                out idwDay,
+                                out idwHour,
+                                out idwMinute,
+                                out idwSecond,
+                                ref idwWorkcode))//get records from the memory
                         {
-                            EnrollmentNumber = sdwEnrollNumber,
-                            VerifyMode = idwVerifyMode,
-                            RegisterDate =
-                                ZKemDateConverter.ConvertToDate(
-                                    idwYear, idwMonth, idwDay, idwHour, idwMinute, idwSecond),
-                            WorkCode = idwWorkcode
-                        };
-                        registers.Add(register);
-                    }
-                }
-                else
-                {
-                    zkemkeeper.GetLastError(ref idwErrorCode);
-                    if (idwErrorCode != 0)
-                    {
-                        throw new Exception("Reading data from terminal failed, ErrorCode: " + idwErrorCode.ToString());
+                            var register = new LogData
+                            {
+                                EnrollmentNumber = sdwEnrollNumber,
+                                VerifyMode = idwVerifyMode,
+                                RegisterDate =
+                                    ZKemDateConverter.ConvertToDate(
+                                        idwYear, idwMonth, idwDay, idwHour, idwMinute, idwSecond),
+                                WorkCode = idwWorkcode
+                            };
+                            registers.Add(register);
+                        }
                     }
                     else
                     {
-                        throw new Exception("No data from terminal returns!");
+                        zkemkeeper.GetLastError(ref idwErrorCode);
+                        if (idwErrorCode != 0)
+                        {
+                            throw new Exception(
+                                string.Format(
+                                    "Reading data from terminal failed, ErrorCode: {0}, Message: {1}",
+                                    idwErrorCode.ToString(),
+                                    //ResourceUtility.GetErrorMessage(idwErrorCode)
+                                    string.Empty
+                                    ));
+                        }
+                        else
+                        {
+                            throw new Exception("No data from terminal returns!");
+                        }
                     }
+                    zkemkeeper.EnableDevice(_iMachineNumber, disableDevice);//enable the device
+                    return registers;
                 }
-                zkemkeeper.EnableDevice(_iMachineNumber, disableDevice);//enable the device
-                return registers;
             }
             return null;
         }

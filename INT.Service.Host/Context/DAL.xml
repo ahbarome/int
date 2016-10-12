@@ -8,14 +8,9 @@
                              http://www.springframework.net/schema/db http://www.springframework.net/schema/db/spring-database.xsd">
 
 	<!--  ============================================================================================================================================= -->
-	<!--  ****************************************************  BLL Objects *************************************************************************** -->
+	<!--  ****************************************************  DAL Objects *************************************************************************** -->
 	<!--  ============================================================================================================================================= -->
-	<object name="DataDownloadProcessor" type="INT.Service.BLL.Processors.DataDownloadProcessor, INT.Service.BLL">
-    <property name="ZKemWrapper" ref="ZKemWrapperStub"/>
-    <property name="Validator" ref="DataDownloadValidator"/>
-    <property name="DAO" ref="DAOManager" />
-	</object>
+	<object name="DAOManager" type="INT.Service.DAL.DataAccess.DAOManager, INT.Service.DAL" singleton="false"/>
 
-  <object name="DataDownloadValidator" type="INT.Service.BLL.Validators.DataDownloadValidator, INT.Service.BLL"/>
 </objects>
 

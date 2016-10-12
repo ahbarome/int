@@ -2,6 +2,7 @@
 {
     public class DataDownloadRequest
     {
+        public int SyncId { get; set; }
         public string FromIpAddress { get; set; }
         public string ToDataBase { get; set; }
 

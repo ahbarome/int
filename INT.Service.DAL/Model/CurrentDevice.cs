@@ -16,5 +16,6 @@ namespace INT.Service.DAL.Model
     {
         public string FromIpAddress { get; set; }
         public string ToDataBase { get; set; }
+        public int SyncId { get; set; }
     }
 }

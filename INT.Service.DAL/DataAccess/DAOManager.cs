@@ -58,5 +58,39 @@ namespace INT.Service.DAL.DataAccess
 
             return date;
         }
+
+        public DateTime GetLastExecutionByIpAddressAndServerName(
+            string ipAddress, string serverName)
+        {
+            BaseContext baseContext = new BaseContext();
+
+            var date = DateTime.MinValue;
+
+            var trace =
+                baseContext.Context.LoadTrace.Where(
+                    x => x.IpAddress.Equals(ipAddress)
+                    && x.ServerName.Equals(serverName)).FirstOrDefault();
+
+            if (trace != null)
+            {
+                date = trace.LastLoadDate;
+
+                trace.LastLoadDate = DateTime.Now;
+            }
+            else
+            {
+                baseContext.Context.LoadTrace.Add(
+                    new LoadTrace()
+                    {
+                        IpAddress = ipAddress,
+                        ServerName = serverName,
+                        LastLoadDate = DateTime.Now
+                    });
+            }
+
+            baseContext.Context.SaveChanges();
+
+            return date;
+        }
     }
 }

@@ -12,6 +12,7 @@ namespace INT.Service.Scheduler.Schedulers
         private readonly ILog LOGGER = null;
 
         public IDispatch<DataDownloadRequest> DataDownloadDispatcher { get; set; }
+        public DAOManager DAO { get; set; }
 
         public DataDownloadScheduler()
         {
@@ -20,20 +21,26 @@ namespace INT.Service.Scheduler.Schedulers
 
         public void ExecuteTask()
         {
-            if (DataDownloadDispatcher != null)
+            try
             {
-                var DAO = new DAOManager();
-
-                var devicesToMonitor = DAO.GetDevicesToMonitor();
-
-                foreach(var device in devicesToMonitor)
+                if (DataDownloadDispatcher != null && DAO != null)
                 {
-                    DataDownloadDispatcher.SendMessage(device);
+                    var devicesToMonitor = DAO.GetDevicesToMonitor();
+
+                    foreach (var device in devicesToMonitor)
+                    {
+                        DataDownloadDispatcher.SendMessage(device);
 #if (DEBUG)
                     LOGGER.Debug(string.Format("Request dispatched: {0}", device));
 #endif
+                    }
                 }
             }
+            catch (Exception exception)
+            {
+                LOGGER.Error(exception.Message, exception);
+            }
+
         }
     }
 }

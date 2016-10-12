@@ -28,7 +28,7 @@ namespace INT.Service.Handler.Handlers
             catch (Exception exception)
             {
                 LOGGER.Error(exception.Message, exception);
-                throw;
+                throw exception;
             }
         }
     }

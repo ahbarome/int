@@ -8,7 +8,8 @@ GO
 --*******************************************************************
 CREATE VIEW [INT].[CurrentDevice]
 AS
-SELECT		[MON].[DireccionIP]			    AS [FromIpAddress], 
+SELECT		[SMO].[Id]						AS [SyncId],
+			[MON].[DireccionIP]			    AS [FromIpAddress], 
 			[SMO].[RutaServidorDBDescarga]	AS [ToDataBase]
             
 FROM        [TWA].[Tbl_MaquinaOnLine]				[MON] WITH(NOLOCK)

@@ -9,6 +9,7 @@
         {
             return new DataDownloadRequest()
             {
+                SyncId = device.SyncId,
                 FromIpAddress = device.FromIpAddress,
                 ToDataBase = device.ToDataBase
             };
