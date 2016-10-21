@@ -26,17 +26,20 @@ namespace INT.Service.BLL.Processors
                 var logData = ZKemWrapper.GetGeneralLogData();
                 ZKemWrapper.Disconnet();
 
-                var filteredLogData = ApplyFilters(logData, request.FromIpAddress, request.ToDataBase);
-                var filteredLogDataDao =
-                    LogDataBuilder(filteredLogData, request.FromIpAddress, request.ToDataBase);
+                request.ToDataBases.ForEach(databaseToSynchronize =>
+                {
+                    var filteredLogData = ApplyFilters(logData, request.FromIpAddress, databaseToSynchronize);
+                    var filteredLogDataDao =
+                        LogDataBuilder(filteredLogData, request.FromIpAddress, databaseToSynchronize);
 
-                Persist(filteredLogDataDao);
+                    Persist(filteredLogDataDao);
+                });
             }
         }
 
         private void Persist(LogDataCollectionRequest filteredLogDataDao)
         {
-            foreach(var data in filteredLogDataDao)
+            foreach (var data in filteredLogDataDao)
             {
                 DAO.LoadDeviceData(data);
             }

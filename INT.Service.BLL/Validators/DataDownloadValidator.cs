@@ -16,10 +16,13 @@ namespace INT.Service.BLL.Validators
                 validationResult.AppendLine("El campo [FromIpAddress] es requerido");
             }
 
-            if (string.IsNullOrWhiteSpace(request.ToDataBase))
+            request.ToDataBases.ForEach(toDataBase =>
             {
-                validationResult.AppendLine("El campo [ToDataBase] es requerido");
-            }
+                if (string.IsNullOrWhiteSpace(toDataBase))
+                {
+                    validationResult.AppendLine("El campo [ToDataBase] es requerido");
+                }
+            });
 
             if (validationResult.Length > 0)
             {

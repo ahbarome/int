@@ -108,6 +108,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Context\DAL.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Context\ZKemkeeper.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
