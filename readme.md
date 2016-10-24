@@ -2,4 +2,5 @@ Administraci贸n de dispositivos biom茅tricos con ZKemkeeper
 ===========
 
 * Versi贸n inicial
-* Adici贸n HOST, Dispatcher, Scheduler y Handler con TOPSHELF, QUARTZ y SPRING.
+* Adici贸n HOST, Dispatcher, Scheduler y Handler con TOPSHELF, QUARTZ y SPRING
+* Adici胣 de proyecto Web.

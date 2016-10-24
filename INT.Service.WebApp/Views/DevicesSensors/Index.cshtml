@@ -1,0 +1,92 @@
+﻿@model IEnumerable<INT.Service.DAL.Model.Tbl_SensorMaquinaOnline>
+
+@{
+    ViewBag.Title = "Sensor";
+}
+
+<h2 class="text-uppercase">Sensor</h2>
+
+<p>
+    @Html.ActionLink(
+    "Nuevo",                  	 // linkText
+    "Create",                    // actionName
+    "DevicesSensors",                   // controllerName
+    null,                        // routeValues
+    new { @class = "btn btn-primary" }  // htmlAttributes
+    )
+</p>
+<table class="table table-responsive table-hover table-striped">
+    <thead>
+        <tr>
+            <th>
+                #
+            </th>
+            <th>
+                Nombre
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                   @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" }) |
+                @Html.ActionLink("Detalle", "Details", new { id = item.Id}, new { @class = "btn btn-warning" }) |
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.Id}, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section Styles{
+    @Styles.Render("~/Content/DataTables/dataTablesStyles")
+}
+@section Scripts{
+    <script src="~/Scripts/DataTables/datatables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var fileName = 'Sensores Dispositivos';
+            var grid = $('table').DataTable({
+                dom: '<"html5buttons"B>lTfgitp',
+                language: {
+                    url: '/Scripts/DataTables/plugins/i18n/Spanish.txt'
+                },
+                "processing": true,
+                buttons: [
+                    { extend: 'copy', text: '<span>Copiar</span>', titleAttr: 'Copiar', },
+                    { extend: 'csv', title: fileName },
+                    { extend: 'excel', title: fileName },
+                    { extend: 'pdf', title: fileName },
+                    {
+                        extend: 'print',
+                        text: '<span>Imprimir</span>',
+                        titleAttr: 'Imprimir',
+                        customize: function (win) {
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                    .addClass('compact')
+                                    .css('font-size', 'inherit');
+                        }
+                    }
+                ]
+            });
+
+            // Add the row number
+            grid.on('order.dt search.dt', function () {
+                grid.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                    grid.cell(cell).invalidate('dom');
+                });
+            });
+        });
+    </script>
+}

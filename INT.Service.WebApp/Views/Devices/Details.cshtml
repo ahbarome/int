@@ -1,0 +1,65 @@
+﻿@model INT.Service.DAL.Model.Tbl_MaquinaOnLine
+
+@{
+    ViewBag.Title = "Detalle";
+}
+
+<h2 class="text-uppercase">Detalle</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Nombre
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreMaquina)
+        </dd>
+
+        <dt>
+            Tipo Comunicación
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoComunicacion)
+        </dd>
+
+        <dt>
+          IP
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DireccionIP)
+        </dd>
+
+        <dt>
+            Puerto
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Puerto)
+        </dd>
+
+        <dt>
+            Tipo Dispositivo
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoDispositivo)
+        </dd>
+
+        <dt>
+            Servidor Descarga
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RutaServidorDBDescarga)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.NumeroMaquina }) |
+    @Html.ActionLink("Volver", "Index")
+</p>

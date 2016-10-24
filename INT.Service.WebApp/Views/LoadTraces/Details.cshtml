@@ -1,0 +1,41 @@
+﻿@model INT.Service.DAL.Model.LoadTrace
+
+@{
+    ViewBag.Title = "Detalle";
+}
+
+<h2 class="text-uppercase">Detalle</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            IP
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IpAddress)
+        </dd>
+
+        <dt>
+           Última Actualización
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastLoadDate)
+        </dd>
+
+        <dt>
+           Servidor Descarga
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ServerName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Volver", "Index")
+</p>

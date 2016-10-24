@@ -1,0 +1,71 @@
+﻿@model INT.Service.DAL.Model.Tbl_MaquinaOnLine
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2 class="text-uppercase">Eliminar</h2>
+
+<h3>Desea eliminar este registro?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Nombre
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreMaquina)
+        </dd>
+
+        <dt>
+            Tipo Comunicación
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoComunicacion)
+        </dd>
+
+        <dt>
+            IP
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DireccionIP)
+        </dd>
+
+        <dt>
+            Puerto
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Puerto)
+        </dd>
+
+        <dt>
+            Tipo Dispositivo
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoDispositivo)
+        </dd>
+
+        <dt>
+            Servidor Descarga
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RutaServidorDBDescarga)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-default" /> |
+            @Html.ActionLink("Volver", "Index")
+        </div>
+    }
+</div>

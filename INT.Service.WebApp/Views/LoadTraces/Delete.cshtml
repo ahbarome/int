@@ -1,0 +1,47 @@
+﻿@model INT.Service.DAL.Model.LoadTrace
+
+@{
+    ViewBag.Title = "Eliminar";
+}
+
+<h2 class="text-uppercase">Eliminar</h2>
+
+<h3>Desea eliminar este registro?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            IP
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IpAddress)
+        </dd>
+
+        <dt>
+            Última Actualización
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastLoadDate)
+        </dd>
+
+        <dt>
+            Servidor Descarga
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ServerName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-default" /> |
+            @Html.ActionLink("Volver", "Index")
+        </div>
+    }
+</div>

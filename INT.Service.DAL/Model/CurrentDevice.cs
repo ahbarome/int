@@ -17,5 +17,9 @@ namespace INT.Service.DAL.Model
         public string FromIpAddress { get; set; }
         public string ToDataBase { get; set; }
         public int SyncId { get; set; }
+        public string DeviceName { get; set; }
+        public string CommunicationType { get; set; }
+        public string DeviceType { get; set; }
+        public string SensorName { get; set; }
     }
 }

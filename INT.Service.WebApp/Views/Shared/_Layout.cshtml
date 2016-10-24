@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - TWCOM ONLINE</title>
+    <!-- Add local styles, mostly for plugins css file -->
+    @if (IsSectionDefined("Styles"))
+    {@RenderSection("Styles", required: false)}
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("TWCOM ONLINE", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Transaciones <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                @Html.ActionLink("Maraciones", "Index", "Enrollments")
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Configuración <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                @Html.ActionLink("Sincronización", "Index", "SyncDevices")
+                            </li>
+                            <li>
+                                @Html.ActionLink("Detalle Sincronización", "Index", "CurrentDevices")
+                            </li>
+                            <li>
+                                @Html.ActionLink("Trazabilidad Sincronización", "Index", "LoadTraces")
+                            </li>
+
+                            <li>
+                                @Html.ActionLink("Dispositivos", "Index", "Devices")
+                            </li>
+                            <li>
+                                @Html.ActionLink("Detalle Dispositivos", "Index", "DevicesDetails")
+                            </li>
+                            <li>
+                                @Html.ActionLink("Sensores Dispositivos", "Index", "DevicesSensors")
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <p class="nav navbar-text navbar-right">Hola, @User.Identity.Name!</p>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+    <div class="footer">
+        <div class="text-center">
+            <p><strong>TWCOM ONLINE</strong> | Copyright &copy; @DateTime.Now.Year | Intelisoft LTDA | Soluciones Tecnológicas del Futuro | Todos los derechos reservados.</strong>
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

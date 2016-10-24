@@ -1,0 +1,101 @@
+﻿@model IEnumerable<INT.Service.DAL.Model.CurrentDevice>
+
+@{
+    ViewBag.Title = "Detalle de Sincronización";
+}
+
+<h2 class="text-uppercase">Detalle de Sincronización</h2>
+
+<table class="table table-responsive table-hover table-striped">
+    <thead>
+        <tr>
+            <th>
+                #
+            </th>
+            <th>
+                Nombre Dispositivo
+            </th>
+            <th>
+                IP
+            </th>
+            <th>
+                Sincronizar BD
+            </th>
+            <th>
+                Tipo Comunicación
+            </th>
+            <th>
+                Tipo Dispositivo
+            </th>
+            <th>
+                Sensor
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SyncId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeviceName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FromIpAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ToDataBase)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeviceType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CommunicationType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SensorName)
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+@section Styles{
+    @Styles.Render("~/Content/DataTables/dataTablesStyles")
+}
+@section Scripts{
+    <script src="~/Scripts/DataTables/datatables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var fileName = 'Detalle Sincronización';
+            var grid = $('table').DataTable({
+                dom: '<"html5buttons"B>lTfgitp',
+                language: {
+                    url: '/Scripts/DataTables/plugins/i18n/Spanish.txt'
+                },
+                "processing": true,
+                buttons: [
+                    { extend: 'copy', text: '<span>Copiar</span>', titleAttr: 'Copiar', },
+                    { extend: 'csv', title: fileName },
+                    { extend: 'excel', title: fileName },
+                    { extend: 'pdf', title: fileName },
+                    {
+                        extend: 'print',
+                        text: '<span>Imprimir</span>',
+                        titleAttr: 'Imprimir',
+                        customize: function (win) {
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                    .addClass('compact')
+                                    .css('font-size', 'inherit');
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
+}

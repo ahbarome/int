@@ -1,0 +1,33 @@
+﻿@model INT.Service.DAL.Model.Tbl_SincronizacionMaquinaOnLine
+
+@{
+    ViewBag.Title = "Detalle";
+}
+
+<h2 class="text-uppercase">Detalle</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            # Dispositivo
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumeroMaquina)
+        </dd>
+
+        <dt>
+            Servidor Descarga
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RutaServidorDBDescarga)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Volver", "Index")
+</p>

@@ -82,6 +82,21 @@
     <Compile Include="Model\Scheduler.cs">
       <DependentUpon>IntellisoftModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\Tbl_CheckInOut.cs">
+      <DependentUpon>IntellisoftModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Tbl_DetalleMaquinaOnLine.cs">
+      <DependentUpon>IntellisoftModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Tbl_MaquinaOnLine.cs">
+      <DependentUpon>IntellisoftModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Tbl_SensorMaquinaOnline.cs">
+      <DependentUpon>IntellisoftModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Tbl_SincronizacionMaquinaOnLine.cs">
+      <DependentUpon>IntellisoftModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

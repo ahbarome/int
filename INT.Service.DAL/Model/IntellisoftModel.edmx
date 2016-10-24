@@ -5,6 +5,17 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="IetellisoftModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Tbl_CheckInOut">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdUsuario" Type="int" Nullable="false" />
+          <Property Name="FechaRegistro" Type="datetime" Nullable="false" />
+          <Property Name="TipoMovimiento" Type="nvarchar" MaxLength="1" />
+          <Property Name="IdSensor" Type="nvarchar" MaxLength="10" />
+          <Property Name="StsModificacion" Type="nvarchar" MaxLength="1" />
+        </EntityType>
         <EntityType Name="LoadTrace">
           <Key>
             <PropertyRef Name="Id" />
@@ -28,6 +39,41 @@
           <Property Name="Hour" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Day" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="Tbl_DetalleMaquinaOnLine">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NumeroMaquina" Type="int" Nullable="false" />
+          <Property Name="IdSensor" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_MaquinaOnLine">
+          <Key>
+            <PropertyRef Name="NumeroMaquina" />
+          </Key>
+          <Property Name="NumeroMaquina" Type="int" Nullable="false" />
+          <Property Name="NombreMaquina" Type="nvarchar" MaxLength="20" />
+          <Property Name="TipoComunicacion" Type="nvarchar" MaxLength="50" />
+          <Property Name="DireccionIP" Type="nvarchar" MaxLength="20" />
+          <Property Name="Puerto" Type="int" />
+          <Property Name="TipoDispositivo" Type="nvarchar" MaxLength="50" />
+          <Property Name="RutaServidorDBDescarga" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Tbl_SensorMaquinaOnline">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="Tbl_SincronizacionMaquinaOnLine">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NumeroMaquina" Type="int" Nullable="false" />
+          <Property Name="RutaServidorDBDescarga" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'INT_BASE.INT.CurrentDevice' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CurrentDevice">
@@ -39,7 +85,35 @@ warning 6002: The table/view 'INT_BASE.INT.CurrentDevice' does not have a primar
           <Property Name="SyncId" Type="int" Nullable="false" />
           <Property Name="FromIpAddress" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="ToDataBase" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DeviceName" Type="nvarchar" MaxLength="20" />
+          <Property Name="CommunicationType" Type="nvarchar" MaxLength="50" />
+          <Property Name="DeviceType" Type="nvarchar" MaxLength="50" />
+          <Property Name="SensorName" Type="nvarchar" MaxLength="250" />
         </EntityType>
+        <Association Name="FK__Tbl_Detal__IdSen__656C112C">
+          <End Role="Tbl_SensorMaquinaOnline" Type="Self.Tbl_SensorMaquinaOnline" Multiplicity="1" />
+          <End Role="Tbl_DetalleMaquinaOnLine" Type="Self.Tbl_DetalleMaquinaOnLine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_SensorMaquinaOnline">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tbl_DetalleMaquinaOnLine">
+              <PropertyRef Name="IdSensor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tbl_Detal__Numer__66603565">
+          <End Role="Tbl_MaquinaOnLine" Type="Self.Tbl_MaquinaOnLine" Multiplicity="1" />
+          <End Role="Tbl_DetalleMaquinaOnLine" Type="Self.Tbl_DetalleMaquinaOnLine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_MaquinaOnLine">
+              <PropertyRef Name="NumeroMaquina" />
+            </Principal>
+            <Dependent Role="Tbl_DetalleMaquinaOnLine">
+              <PropertyRef Name="NumeroMaquina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="LoadDeviceData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="INT">
           <Parameter Name="Server" Type="nvarchar" Mode="In" />
           <Parameter Name="IpAddress" Type="nvarchar" Mode="In" />
@@ -47,15 +121,32 @@ warning 6002: The table/view 'INT_BASE.INT.CurrentDevice' does not have a primar
           <Parameter Name="RegisterDate" Type="datetime" Mode="In" />
         </Function>
         <EntityContainer Name="IetellisoftModelStoreContainer">
+          <EntitySet Name="Tbl_CheckInOut" EntityType="Self.Tbl_CheckInOut" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LoadTrace" EntityType="Self.LoadTrace" Schema="INT" store:Type="Tables" />
           <EntitySet Name="Scheduler" EntityType="Self.Scheduler" Schema="INT" store:Type="Tables" />
+          <EntitySet Name="Tbl_DetalleMaquinaOnLine" EntityType="Self.Tbl_DetalleMaquinaOnLine" Schema="TWA" store:Type="Tables" />
+          <EntitySet Name="Tbl_MaquinaOnLine" EntityType="Self.Tbl_MaquinaOnLine" Schema="TWA" store:Type="Tables" />
+          <EntitySet Name="Tbl_SensorMaquinaOnline" EntityType="Self.Tbl_SensorMaquinaOnline" Schema="TWA" store:Type="Tables" />
+          <EntitySet Name="Tbl_SincronizacionMaquinaOnLine" EntityType="Self.Tbl_SincronizacionMaquinaOnLine" Schema="TWA" store:Type="Tables" />
           <EntitySet Name="CurrentDevice" EntityType="Self.CurrentDevice" store:Type="Views" store:Schema="INT">
             <DefiningQuery>SELECT 
     [CurrentDevice].[SyncId] AS [SyncId], 
     [CurrentDevice].[FromIpAddress] AS [FromIpAddress], 
-    [CurrentDevice].[ToDataBase] AS [ToDataBase]
+    [CurrentDevice].[ToDataBase] AS [ToDataBase], 
+    [CurrentDevice].[DeviceName] AS [DeviceName], 
+    [CurrentDevice].[CommunicationType] AS [CommunicationType], 
+    [CurrentDevice].[DeviceType] AS [DeviceType], 
+    [CurrentDevice].[SensorName] AS [SensorName]
     FROM [INT].[CurrentDevice] AS [CurrentDevice]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK__Tbl_Detal__IdSen__656C112C" Association="Self.FK__Tbl_Detal__IdSen__656C112C">
+            <End Role="Tbl_SensorMaquinaOnline" EntitySet="Tbl_SensorMaquinaOnline" />
+            <End Role="Tbl_DetalleMaquinaOnLine" EntitySet="Tbl_DetalleMaquinaOnLine" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tbl_Detal__Numer__66603565" Association="Self.FK__Tbl_Detal__Numer__66603565">
+            <End Role="Tbl_MaquinaOnLine" EntitySet="Tbl_MaquinaOnLine" />
+            <End Role="Tbl_DetalleMaquinaOnLine" EntitySet="Tbl_DetalleMaquinaOnLine" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -85,7 +176,20 @@ warning 6002: The table/view 'INT_BASE.INT.CurrentDevice' does not have a primar
             <Parameter Name="EnrollmentNumber" Mode="In" Type="String" />
             <Parameter Name="RegisterDate" Mode="In" Type="DateTime" />
           </FunctionImport>
-        </EntityContainer>
+          <EntitySet Name="Tbl_CheckInOut" EntityType="IetellisoftModel.Tbl_CheckInOut" />
+          <EntitySet Name="Tbl_MaquinaOnLine" EntityType="IetellisoftModel.Tbl_MaquinaOnLine" />
+          <EntitySet Name="Tbl_SensorMaquinaOnline" EntityType="IetellisoftModel.Tbl_SensorMaquinaOnline" />
+          <EntitySet Name="Tbl_SincronizacionMaquinaOnLine" EntityType="IetellisoftModel.Tbl_SincronizacionMaquinaOnLine" />
+          <EntitySet Name="Tbl_DetalleMaquinaOnLine" EntityType="IetellisoftModel.Tbl_DetalleMaquinaOnLine" />
+          <AssociationSet Name="FK__Tbl_Detal__IdSen__656C112C" Association="IetellisoftModel.FK__Tbl_Detal__IdSen__656C112C">
+            <End Role="Tbl_SensorMaquinaOnline" EntitySet="Tbl_SensorMaquinaOnline" />
+            <End Role="Tbl_DetalleMaquinaOnLine" EntitySet="Tbl_DetalleMaquinaOnLine" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tbl_Detal__Numer__66603565" Association="IetellisoftModel.FK__Tbl_Detal__Numer__66603565">
+            <End Role="Tbl_MaquinaOnLine" EntitySet="Tbl_MaquinaOnLine" />
+            <End Role="Tbl_DetalleMaquinaOnLine" EntitySet="Tbl_DetalleMaquinaOnLine" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="CurrentDevice">
           <Key>
             <PropertyRef Name="FromIpAddress" />
@@ -94,6 +198,10 @@ warning 6002: The table/view 'INT_BASE.INT.CurrentDevice' does not have a primar
           <Property Name="FromIpAddress" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="ToDataBase" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="SyncId" Type="Int32" Nullable="false" />
+          <Property Name="DeviceName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CommunicationType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DeviceType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SensorName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="LoadTrace">
           <Key>
@@ -104,7 +212,81 @@ warning 6002: The table/view 'INT_BASE.INT.CurrentDevice' does not have a primar
           <Property Name="LastLoadDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ServerName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
-      </Schema>
+        <EntityType Name="Tbl_CheckInOut">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+          <Property Name="FechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TipoMovimiento" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="IdSensor" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="StsModificacion" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Tbl_MaquinaOnLine">
+          <Key>
+            <PropertyRef Name="NumeroMaquina" />
+          </Key>
+          <Property Name="NumeroMaquina" Type="Int32" Nullable="false" />
+          <Property Name="NombreMaquina" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="TipoComunicacion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DireccionIP" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Puerto" Type="Int32" />
+          <Property Name="TipoDispositivo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RutaServidorDBDescarga" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Tbl_DetalleMaquinaOnLine" Relationship="IetellisoftModel.FK__Tbl_Detal__Numer__66603565" FromRole="Tbl_MaquinaOnLine" ToRole="Tbl_DetalleMaquinaOnLine" />
+        </EntityType>
+        <EntityType Name="Tbl_SensorMaquinaOnline">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Tbl_DetalleMaquinaOnLine" Relationship="IetellisoftModel.FK__Tbl_Detal__IdSen__656C112C" FromRole="Tbl_SensorMaquinaOnline" ToRole="Tbl_DetalleMaquinaOnLine" />
+        </EntityType>
+        <EntityType Name="Tbl_SincronizacionMaquinaOnLine">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NumeroMaquina" Type="Int32" Nullable="false" />
+          <Property Name="RutaServidorDBDescarga" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Tbl_DetalleMaquinaOnLine">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NumeroMaquina" Type="Int32" Nullable="false" />
+          <Property Name="IdSensor" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Tbl_SensorMaquinaOnline" Relationship="IetellisoftModel.FK__Tbl_Detal__IdSen__656C112C" FromRole="Tbl_DetalleMaquinaOnLine" ToRole="Tbl_SensorMaquinaOnline" />
+          <NavigationProperty Name="Tbl_MaquinaOnLine" Relationship="IetellisoftModel.FK__Tbl_Detal__Numer__66603565" FromRole="Tbl_DetalleMaquinaOnLine" ToRole="Tbl_MaquinaOnLine" />
+        </EntityType>
+        <Association Name="FK__Tbl_Detal__IdSen__656C112C">
+          <End Type="IetellisoftModel.Tbl_SensorMaquinaOnline" Role="Tbl_SensorMaquinaOnline" Multiplicity="1" />
+          <End Type="IetellisoftModel.Tbl_DetalleMaquinaOnLine" Role="Tbl_DetalleMaquinaOnLine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_SensorMaquinaOnline">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tbl_DetalleMaquinaOnLine">
+              <PropertyRef Name="IdSensor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tbl_Detal__Numer__66603565">
+          <End Type="IetellisoftModel.Tbl_MaquinaOnLine" Role="Tbl_MaquinaOnLine" Multiplicity="1" />
+          <End Type="IetellisoftModel.Tbl_DetalleMaquinaOnLine" Role="Tbl_DetalleMaquinaOnLine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_MaquinaOnLine">
+              <PropertyRef Name="NumeroMaquina" />
+            </Principal>
+            <Dependent Role="Tbl_DetalleMaquinaOnLine">
+              <PropertyRef Name="NumeroMaquina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -126,6 +308,10 @@ warning 6002: The table/view 'INT_BASE.INT.CurrentDevice' does not have a primar
           <EntitySetMapping Name="CurrentDevice">
             <EntityTypeMapping TypeName="IetellisoftModel.CurrentDevice">
               <MappingFragment StoreEntitySet="CurrentDevice">
+                <ScalarProperty Name="SensorName" ColumnName="SensorName" />
+                <ScalarProperty Name="DeviceType" ColumnName="DeviceType" />
+                <ScalarProperty Name="CommunicationType" ColumnName="CommunicationType" />
+                <ScalarProperty Name="DeviceName" ColumnName="DeviceName" />
                 <ScalarProperty Name="SyncId" ColumnName="SyncId" />
                 <ScalarProperty Name="ToDataBase" ColumnName="ToDataBase" />
                 <ScalarProperty Name="FromIpAddress" ColumnName="FromIpAddress" />
@@ -143,6 +329,57 @@ warning 6002: The table/view 'INT_BASE.INT.CurrentDevice' does not have a primar
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="LoadDeviceData" FunctionName="IetellisoftModel.Store.LoadDeviceData" />
+          <EntitySetMapping Name="Tbl_CheckInOut">
+            <EntityTypeMapping TypeName="IetellisoftModel.Tbl_CheckInOut">
+              <MappingFragment StoreEntitySet="Tbl_CheckInOut">
+                <ScalarProperty Name="StsModificacion" ColumnName="StsModificacion" />
+                <ScalarProperty Name="IdSensor" ColumnName="IdSensor" />
+                <ScalarProperty Name="TipoMovimiento" ColumnName="TipoMovimiento" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_MaquinaOnLine">
+            <EntityTypeMapping TypeName="IetellisoftModel.Tbl_MaquinaOnLine">
+              <MappingFragment StoreEntitySet="Tbl_MaquinaOnLine">
+                <ScalarProperty Name="RutaServidorDBDescarga" ColumnName="RutaServidorDBDescarga" />
+                <ScalarProperty Name="TipoDispositivo" ColumnName="TipoDispositivo" />
+                <ScalarProperty Name="Puerto" ColumnName="Puerto" />
+                <ScalarProperty Name="DireccionIP" ColumnName="DireccionIP" />
+                <ScalarProperty Name="TipoComunicacion" ColumnName="TipoComunicacion" />
+                <ScalarProperty Name="NombreMaquina" ColumnName="NombreMaquina" />
+                <ScalarProperty Name="NumeroMaquina" ColumnName="NumeroMaquina" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_SensorMaquinaOnline">
+            <EntityTypeMapping TypeName="IetellisoftModel.Tbl_SensorMaquinaOnline">
+              <MappingFragment StoreEntitySet="Tbl_SensorMaquinaOnline">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_SincronizacionMaquinaOnLine">
+            <EntityTypeMapping TypeName="IetellisoftModel.Tbl_SincronizacionMaquinaOnLine">
+              <MappingFragment StoreEntitySet="Tbl_SincronizacionMaquinaOnLine">
+                <ScalarProperty Name="RutaServidorDBDescarga" ColumnName="RutaServidorDBDescarga" />
+                <ScalarProperty Name="NumeroMaquina" ColumnName="NumeroMaquina" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_DetalleMaquinaOnLine">
+            <EntityTypeMapping TypeName="IetellisoftModel.Tbl_DetalleMaquinaOnLine">
+              <MappingFragment StoreEntitySet="Tbl_DetalleMaquinaOnLine">
+                <ScalarProperty Name="IdSensor" ColumnName="IdSensor" />
+                <ScalarProperty Name="NumeroMaquina" ColumnName="NumeroMaquina" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
