@@ -70,7 +70,7 @@ CREATE TABLE [TWA].[Tbl_SensorMaquinaOnline](
 GO
 --*******************************************************************
 CREATE TABLE [TWA].[Tbl_DetalleMaquinaOnLine](
-	[Id]			[int] IDENTITY(1,1) NOT NULL,
+	[Id]			[int] 				IDENTITY(1,1) PRIMARY KEY NOT NULL,
 	[NumeroMaquina] [int]				NOT NULL,
 	[IdSensor]		[int]				NOT NULL,
 	FOREIGN KEY([IdSensor])			REFERENCES [TWA].[Tbl_SensorMaquinaOnline] ([Id]),
