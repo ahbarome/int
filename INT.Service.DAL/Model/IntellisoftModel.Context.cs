@@ -30,11 +30,11 @@ namespace INT.Service.DAL.Model
         public virtual DbSet<Scheduler> Scheduler { get; set; }
         public virtual DbSet<CurrentDevice> CurrentDevice { get; set; }
         public virtual DbSet<LoadTrace> LoadTrace { get; set; }
-        public virtual DbSet<Tbl_CheckInOut> Tbl_CheckInOut { get; set; }
         public virtual DbSet<Tbl_MaquinaOnLine> Tbl_MaquinaOnLine { get; set; }
         public virtual DbSet<Tbl_SensorMaquinaOnline> Tbl_SensorMaquinaOnline { get; set; }
         public virtual DbSet<Tbl_SincronizacionMaquinaOnLine> Tbl_SincronizacionMaquinaOnLine { get; set; }
         public virtual DbSet<Tbl_DetalleMaquinaOnLine> Tbl_DetalleMaquinaOnLine { get; set; }
+        public virtual DbSet<CheckInOut> CheckInOut { get; set; }
     
         public virtual int LoadDeviceData(string server, string ipAddress, string enrollmentNumber, Nullable<System.DateTime> registerDate)
         {

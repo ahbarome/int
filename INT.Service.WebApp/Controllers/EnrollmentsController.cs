@@ -13,7 +13,7 @@ namespace INT.Service.WebApp.Controllers
         // GET: Enrollments
         public async Task<ActionResult> Index()
         {
-            return View(await db.Tbl_CheckInOut.ToListAsync());
+            return View(await db.CheckInOut.ToListAsync());
         }
 
         // GET: Enrollments/Details/5
@@ -23,12 +23,12 @@ namespace INT.Service.WebApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Tbl_CheckInOut tbl_CheckInOut = await db.Tbl_CheckInOut.FindAsync(id);
-            if (tbl_CheckInOut == null)
+            CheckInOut checkInOut = await db.CheckInOut.FindAsync(id);
+            if (checkInOut == null)
             {
                 return HttpNotFound();
             }
-            return View(tbl_CheckInOut);
+            return View(checkInOut);
         }
 
         // GET: Enrollments/Create
@@ -42,16 +42,16 @@ namespace INT.Service.WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,IdUsuario,FechaRegistro,TipoMovimiento,IdSensor,StsModificacion")] Tbl_CheckInOut tbl_CheckInOut)
+        public async Task<ActionResult> Create([Bind(Include = "Id,IdUsuario,FechaRegistro,TipoMovimiento,IdSensor,StsModificacion")] CheckInOut checkInOut)
         {
             if (ModelState.IsValid)
             {
-                db.Tbl_CheckInOut.Add(tbl_CheckInOut);
+                db.CheckInOut.Add(checkInOut);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            return View(tbl_CheckInOut);
+            return View(checkInOut);
         }
 
         // GET: Enrollments/Edit/5
@@ -61,12 +61,12 @@ namespace INT.Service.WebApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Tbl_CheckInOut tbl_CheckInOut = await db.Tbl_CheckInOut.FindAsync(id);
-            if (tbl_CheckInOut == null)
+            CheckInOut checkInOut = await db.CheckInOut.FindAsync(id);
+            if (checkInOut == null)
             {
                 return HttpNotFound();
             }
-            return View(tbl_CheckInOut);
+            return View(checkInOut);
         }
 
         // POST: Enrollments/Edit/5
@@ -74,15 +74,15 @@ namespace INT.Service.WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,IdUsuario,FechaRegistro,TipoMovimiento,IdSensor,StsModificacion")] Tbl_CheckInOut tbl_CheckInOut)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,IdUsuario,FechaRegistro,TipoMovimiento,IdSensor,StsModificacion")] CheckInOut checkInOut)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(tbl_CheckInOut).State = EntityState.Modified;
+                db.Entry(checkInOut).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(tbl_CheckInOut);
+            return View(checkInOut);
         }
 
         // GET: Enrollments/Delete/5
@@ -92,12 +92,12 @@ namespace INT.Service.WebApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Tbl_CheckInOut tbl_CheckInOut = await db.Tbl_CheckInOut.FindAsync(id);
-            if (tbl_CheckInOut == null)
+            CheckInOut checkInOut = await db.CheckInOut.FindAsync(id);
+            if (checkInOut == null)
             {
                 return HttpNotFound();
             }
-            return View(tbl_CheckInOut);
+            return View(checkInOut);
         }
 
         // POST: Enrollments/Delete/5
@@ -105,8 +105,8 @@ namespace INT.Service.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Tbl_CheckInOut tbl_CheckInOut = await db.Tbl_CheckInOut.FindAsync(id);
-            db.Tbl_CheckInOut.Remove(tbl_CheckInOut);
+            CheckInOut checkInOut = await db.CheckInOut.FindAsync(id);
+            db.CheckInOut.Remove(checkInOut);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }

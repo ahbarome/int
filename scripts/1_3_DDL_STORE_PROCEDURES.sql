@@ -3,7 +3,7 @@
 -- Create date: 2016-10-09
 -- Description: Data definition for store procedures
 --*******************************************************************
-USE [INT_BASE]
+USE [TimeWork]
 GO
 --*******************************************************************
 
@@ -19,7 +19,7 @@ GO
 -- Description:	Store the enrollments into the 
 --               transactional table
 -- =============================================
-CREATE PROCEDURE [INT].[LoadDeviceData]
+ALTER PROCEDURE [INT].[LoadDeviceData]
 	@Server					AS NVARCHAR(50),
 	@IpAddress				AS NVARCHAR(20),
 	@EnrollmentNumber		AS NVARCHAR(50),
@@ -33,12 +33,11 @@ BEGIN
 
 	SET NOCOUNT OFF;
 
-	SET @DB = @Server + '.' + '[TWA].[Tbl_CheckInOut]'
+	SET @DB = @Server + '.' + '[dbo].[CheckInOut]'
 
 	SELECT TOP 1 @Sensor = [IdSensor] FROM [TWA].[Tbl_DetalleMaquinaOnLine] WHERE [NumeroMaquina] = (SELECT [NumeroMaquina] FROM [TWA].[Tbl_MaquinaOnLine] WHERE [DireccionIP] = @IpAddress)
 
 	SET @SQL =	'INSERT INTO ' + @DB + ' ([IdUsuario], '		
-									 +   '[IpMaquina], '		
 									 +	 '[FechaRegistro], '
 								     +	 '[IdSensor]) '
 						+ 'VALUES '  +				 

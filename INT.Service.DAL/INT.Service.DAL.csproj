@@ -56,6 +56,9 @@
   <ItemGroup>
     <Compile Include="Base\BaseContext.cs" />
     <Compile Include="DataAccess\DAOManager.cs" />
+    <Compile Include="Model\CheckInOut.cs">
+      <DependentUpon>IntellisoftModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\CurrentDevice.cs">
       <DependentUpon>IntellisoftModel.tt</DependentUpon>
     </Compile>
@@ -80,9 +83,6 @@
     <Compile Include="Model\Mapper\CurrentDevice.cs" />
     <Compile Include="Model\Mapper\Scheduler.cs" />
     <Compile Include="Model\Scheduler.cs">
-      <DependentUpon>IntellisoftModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\Tbl_CheckInOut.cs">
       <DependentUpon>IntellisoftModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Tbl_DetalleMaquinaOnLine.cs">

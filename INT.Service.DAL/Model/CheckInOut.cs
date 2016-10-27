@@ -12,7 +12,7 @@ namespace INT.Service.DAL.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Tbl_CheckInOut
+    public partial class CheckInOut
     {
         public int Id { get; set; }
         public int IdUsuario { get; set; }

@@ -8,13 +8,13 @@
         <EntityTypeShape EntityType="IetellisoftModel.Scheduler" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="IetellisoftModel.CurrentDevice" Width="1.5" PointX="0.5" PointY="0.75" />
         <EntityTypeShape EntityType="IetellisoftModel.LoadTrace" Width="1.5" PointX="5.375" PointY="0.75" />
-        <EntityTypeShape EntityType="IetellisoftModel.Tbl_CheckInOut" Width="1.5" PointX="5.75" PointY="3.75" />
         <EntityTypeShape EntityType="IetellisoftModel.Tbl_MaquinaOnLine" Width="1.5" PointX="0.75" PointY="5" />
         <EntityTypeShape EntityType="IetellisoftModel.Tbl_SensorMaquinaOnline" Width="1.5" PointX="0.75" PointY="8.375" />
         <EntityTypeShape EntityType="IetellisoftModel.Tbl_SincronizacionMaquinaOnLine" Width="1.5" PointX="5.75" PointY="6.75" />
         <EntityTypeShape EntityType="IetellisoftModel.Tbl_DetalleMaquinaOnLine" Width="1.5" PointX="3" PointY="6.5" />
         <AssociationConnector Association="IetellisoftModel.FK__Tbl_Detal__IdSen__656C112C" />
         <AssociationConnector Association="IetellisoftModel.FK__Tbl_Detal__Numer__66603565" />
+        <EntityTypeShape EntityType="IetellisoftModel.CheckInOut" Width="1.5" PointX="5.375" PointY="3.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

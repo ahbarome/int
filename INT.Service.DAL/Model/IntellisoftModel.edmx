@@ -5,7 +5,7 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="IetellisoftModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Tbl_CheckInOut">
+        <EntityType Name="CheckInOut">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -121,7 +121,7 @@ warning 6002: The table/view 'INT_BASE.INT.CurrentDevice' does not have a primar
           <Parameter Name="RegisterDate" Type="datetime" Mode="In" />
         </Function>
         <EntityContainer Name="IetellisoftModelStoreContainer">
-          <EntitySet Name="Tbl_CheckInOut" EntityType="Self.Tbl_CheckInOut" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CheckInOut" EntityType="Self.CheckInOut" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LoadTrace" EntityType="Self.LoadTrace" Schema="INT" store:Type="Tables" />
           <EntitySet Name="Scheduler" EntityType="Self.Scheduler" Schema="INT" store:Type="Tables" />
           <EntitySet Name="Tbl_DetalleMaquinaOnLine" EntityType="Self.Tbl_DetalleMaquinaOnLine" Schema="TWA" store:Type="Tables" />
@@ -176,7 +176,6 @@ warning 6002: The table/view 'INT_BASE.INT.CurrentDevice' does not have a primar
             <Parameter Name="EnrollmentNumber" Mode="In" Type="String" />
             <Parameter Name="RegisterDate" Mode="In" Type="DateTime" />
           </FunctionImport>
-          <EntitySet Name="Tbl_CheckInOut" EntityType="IetellisoftModel.Tbl_CheckInOut" />
           <EntitySet Name="Tbl_MaquinaOnLine" EntityType="IetellisoftModel.Tbl_MaquinaOnLine" />
           <EntitySet Name="Tbl_SensorMaquinaOnline" EntityType="IetellisoftModel.Tbl_SensorMaquinaOnline" />
           <EntitySet Name="Tbl_SincronizacionMaquinaOnLine" EntityType="IetellisoftModel.Tbl_SincronizacionMaquinaOnLine" />
@@ -189,6 +188,7 @@ warning 6002: The table/view 'INT_BASE.INT.CurrentDevice' does not have a primar
             <End Role="Tbl_MaquinaOnLine" EntitySet="Tbl_MaquinaOnLine" />
             <End Role="Tbl_DetalleMaquinaOnLine" EntitySet="Tbl_DetalleMaquinaOnLine" />
           </AssociationSet>
+          <EntitySet Name="CheckInOut" EntityType="IetellisoftModel.CheckInOut" />
           </EntityContainer>
         <EntityType Name="CurrentDevice">
           <Key>
@@ -211,17 +211,6 @@ warning 6002: The table/view 'INT_BASE.INT.CurrentDevice' does not have a primar
           <Property Name="IpAddress" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="LastLoadDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ServerName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Tbl_CheckInOut">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
-          <Property Name="FechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="TipoMovimiento" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
-          <Property Name="IdSensor" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="StsModificacion" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Tbl_MaquinaOnLine">
           <Key>
@@ -286,6 +275,17 @@ warning 6002: The table/view 'INT_BASE.INT.CurrentDevice' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="CheckInOut">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+          <Property Name="FechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TipoMovimiento" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="IdSensor" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="StsModificacion" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -329,18 +329,6 @@ warning 6002: The table/view 'INT_BASE.INT.CurrentDevice' does not have a primar
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="LoadDeviceData" FunctionName="IetellisoftModel.Store.LoadDeviceData" />
-          <EntitySetMapping Name="Tbl_CheckInOut">
-            <EntityTypeMapping TypeName="IetellisoftModel.Tbl_CheckInOut">
-              <MappingFragment StoreEntitySet="Tbl_CheckInOut">
-                <ScalarProperty Name="StsModificacion" ColumnName="StsModificacion" />
-                <ScalarProperty Name="IdSensor" ColumnName="IdSensor" />
-                <ScalarProperty Name="TipoMovimiento" ColumnName="TipoMovimiento" />
-                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
-                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Tbl_MaquinaOnLine">
             <EntityTypeMapping TypeName="IetellisoftModel.Tbl_MaquinaOnLine">
               <MappingFragment StoreEntitySet="Tbl_MaquinaOnLine">
@@ -376,6 +364,18 @@ warning 6002: The table/view 'INT_BASE.INT.CurrentDevice' does not have a primar
               <MappingFragment StoreEntitySet="Tbl_DetalleMaquinaOnLine">
                 <ScalarProperty Name="IdSensor" ColumnName="IdSensor" />
                 <ScalarProperty Name="NumeroMaquina" ColumnName="NumeroMaquina" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CheckInOut">
+            <EntityTypeMapping TypeName="IetellisoftModel.CheckInOut">
+              <MappingFragment StoreEntitySet="CheckInOut">
+                <ScalarProperty Name="StsModificacion" ColumnName="StsModificacion" />
+                <ScalarProperty Name="IdSensor" ColumnName="IdSensor" />
+                <ScalarProperty Name="TipoMovimiento" ColumnName="TipoMovimiento" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

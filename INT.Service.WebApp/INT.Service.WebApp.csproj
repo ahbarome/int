@@ -780,11 +780,6 @@
     <Content Include="Views\CurrentDevices\Details.cshtml" />
     <Content Include="Views\CurrentDevices\Edit.cshtml" />
     <Content Include="Views\CurrentDevices\Index.cshtml" />
-    <Content Include="Views\Enrollments\Create.cshtml" />
-    <Content Include="Views\Enrollments\Delete.cshtml" />
-    <Content Include="Views\Enrollments\Details.cshtml" />
-    <Content Include="Views\Enrollments\Edit.cshtml" />
-    <Content Include="Views\Enrollments\Index.cshtml" />
     <Content Include="Views\SyncDevices\Create.cshtml" />
     <Content Include="Views\SyncDevices\Delete.cshtml" />
     <Content Include="Views\SyncDevices\Details.cshtml" />
@@ -805,6 +800,11 @@
     <Content Include="Views\DevicesDetails\Details.cshtml" />
     <Content Include="Views\DevicesDetails\Edit.cshtml" />
     <Content Include="Views\DevicesDetails\Index.cshtml" />
+    <Content Include="Views\Enrollments\Create.cshtml" />
+    <Content Include="Views\Enrollments\Delete.cshtml" />
+    <Content Include="Views\Enrollments\Details.cshtml" />
+    <Content Include="Views\Enrollments\Edit.cshtml" />
+    <Content Include="Views\Enrollments\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
