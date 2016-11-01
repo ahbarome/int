@@ -800,10 +800,6 @@
     <Content Include="Views\DevicesDetails\Details.cshtml" />
     <Content Include="Views\DevicesDetails\Edit.cshtml" />
     <Content Include="Views\DevicesDetails\Index.cshtml" />
-    <Content Include="Views\Enrollments\Create.cshtml" />
-    <Content Include="Views\Enrollments\Delete.cshtml" />
-    <Content Include="Views\Enrollments\Details.cshtml" />
-    <Content Include="Views\Enrollments\Edit.cshtml" />
     <Content Include="Views\Enrollments\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

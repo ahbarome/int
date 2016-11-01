@@ -12,13 +12,12 @@ namespace INT.Service.DAL.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class CheckInOut
+    public partial class CHECKINOUT
     {
-        public int Id { get; set; }
-        public int IdUsuario { get; set; }
-        public System.DateTime FechaRegistro { get; set; }
-        public string TipoMovimiento { get; set; }
-        public string IdSensor { get; set; }
+        public string Userid { get; set; }
+        public System.DateTime CheckTime { get; set; }
+        public string CheckType { get; set; }
+        public string Sensorid { get; set; }
         public string StsModificacion { get; set; }
     }
 }

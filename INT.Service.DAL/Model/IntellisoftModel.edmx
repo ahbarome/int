@@ -5,15 +5,15 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="IetellisoftModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="CheckInOut">
+        <EntityType Name="CHECKINOUT">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="Userid" />
+            <PropertyRef Name="CheckTime" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IdUsuario" Type="int" Nullable="false" />
-          <Property Name="FechaRegistro" Type="datetime" Nullable="false" />
-          <Property Name="TipoMovimiento" Type="nvarchar" MaxLength="1" />
-          <Property Name="IdSensor" Type="nvarchar" MaxLength="10" />
+          <Property Name="Userid" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="CheckTime" Type="datetime" Nullable="false" />
+          <Property Name="CheckType" Type="nvarchar" MaxLength="1" />
+          <Property Name="Sensorid" Type="nvarchar" MaxLength="10" />
           <Property Name="StsModificacion" Type="nvarchar" MaxLength="1" />
         </EntityType>
         <EntityType Name="LoadTrace">
@@ -121,7 +121,7 @@ warning 6002: The table/view 'INT_BASE.INT.CurrentDevice' does not have a primar
           <Parameter Name="RegisterDate" Type="datetime" Mode="In" />
         </Function>
         <EntityContainer Name="IetellisoftModelStoreContainer">
-          <EntitySet Name="CheckInOut" EntityType="Self.CheckInOut" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CHECKINOUT" EntityType="Self.CHECKINOUT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LoadTrace" EntityType="Self.LoadTrace" Schema="INT" store:Type="Tables" />
           <EntitySet Name="Scheduler" EntityType="Self.Scheduler" Schema="INT" store:Type="Tables" />
           <EntitySet Name="Tbl_DetalleMaquinaOnLine" EntityType="Self.Tbl_DetalleMaquinaOnLine" Schema="TWA" store:Type="Tables" />
@@ -188,7 +188,7 @@ warning 6002: The table/view 'INT_BASE.INT.CurrentDevice' does not have a primar
             <End Role="Tbl_MaquinaOnLine" EntitySet="Tbl_MaquinaOnLine" />
             <End Role="Tbl_DetalleMaquinaOnLine" EntitySet="Tbl_DetalleMaquinaOnLine" />
           </AssociationSet>
-          <EntitySet Name="CheckInOut" EntityType="IetellisoftModel.CheckInOut" />
+          <EntitySet Name="CHECKINOUT" EntityType="IetellisoftModel.CHECKINOUT" />
           </EntityContainer>
         <EntityType Name="CurrentDevice">
           <Key>
@@ -275,15 +275,15 @@ warning 6002: The table/view 'INT_BASE.INT.CurrentDevice' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="CheckInOut">
+        <EntityType Name="CHECKINOUT">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="Userid" />
+            <PropertyRef Name="CheckTime" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
-          <Property Name="FechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="TipoMovimiento" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
-          <Property Name="IdSensor" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Userid" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CheckTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CheckType" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="Sensorid" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="StsModificacion" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
@@ -368,15 +368,14 @@ warning 6002: The table/view 'INT_BASE.INT.CurrentDevice' does not have a primar
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CheckInOut">
-            <EntityTypeMapping TypeName="IetellisoftModel.CheckInOut">
-              <MappingFragment StoreEntitySet="CheckInOut">
+          <EntitySetMapping Name="CHECKINOUT">
+            <EntityTypeMapping TypeName="IetellisoftModel.CHECKINOUT">
+              <MappingFragment StoreEntitySet="CHECKINOUT">
                 <ScalarProperty Name="StsModificacion" ColumnName="StsModificacion" />
-                <ScalarProperty Name="IdSensor" ColumnName="IdSensor" />
-                <ScalarProperty Name="TipoMovimiento" ColumnName="TipoMovimiento" />
-                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
-                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Sensorid" ColumnName="Sensorid" />
+                <ScalarProperty Name="CheckType" ColumnName="CheckType" />
+                <ScalarProperty Name="CheckTime" ColumnName="CheckTime" />
+                <ScalarProperty Name="Userid" ColumnName="Userid" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

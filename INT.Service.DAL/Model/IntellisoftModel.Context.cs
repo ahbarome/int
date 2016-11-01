@@ -34,7 +34,7 @@ namespace INT.Service.DAL.Model
         public virtual DbSet<Tbl_SensorMaquinaOnline> Tbl_SensorMaquinaOnline { get; set; }
         public virtual DbSet<Tbl_SincronizacionMaquinaOnLine> Tbl_SincronizacionMaquinaOnLine { get; set; }
         public virtual DbSet<Tbl_DetalleMaquinaOnLine> Tbl_DetalleMaquinaOnLine { get; set; }
-        public virtual DbSet<CheckInOut> CheckInOut { get; set; }
+        public virtual DbSet<CHECKINOUT> CHECKINOUT { get; set; }
     
         public virtual int LoadDeviceData(string server, string ipAddress, string enrollmentNumber, Nullable<System.DateTime> registerDate)
         {

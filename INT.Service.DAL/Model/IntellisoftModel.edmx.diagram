@@ -14,7 +14,7 @@
         <EntityTypeShape EntityType="IetellisoftModel.Tbl_DetalleMaquinaOnLine" Width="1.5" PointX="3" PointY="6.5" />
         <AssociationConnector Association="IetellisoftModel.FK__Tbl_Detal__IdSen__656C112C" />
         <AssociationConnector Association="IetellisoftModel.FK__Tbl_Detal__Numer__66603565" />
-        <EntityTypeShape EntityType="IetellisoftModel.CheckInOut" Width="1.5" PointX="5.375" PointY="3.75" />
+        <EntityTypeShape EntityType="IetellisoftModel.CHECKINOUT" Width="1.5" PointX="5.375" PointY="3.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

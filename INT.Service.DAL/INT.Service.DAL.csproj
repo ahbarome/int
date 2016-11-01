@@ -56,7 +56,7 @@
   <ItemGroup>
     <Compile Include="Base\BaseContext.cs" />
     <Compile Include="DataAccess\DAOManager.cs" />
-    <Compile Include="Model\CheckInOut.cs">
+    <Compile Include="Model\CHECKINOUT.cs">
       <DependentUpon>IntellisoftModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\CurrentDevice.cs">
